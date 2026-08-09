@@ -36,6 +36,6 @@ User chose option **2 — Stable Audio + ElevenLabs**.
 
 Intro/Build/Drop/Break/Outro markers are draggable labels that define loop regions. No audio rearrangement / clip splitting yet.
 
-## 2026-08-09 — Stem separation path
+## 2026-08-09 — Stitch zip as design source of truth
 
-Mock provider returns bundled stem WAVs. Real Stable Audio returns stereo only — `regenerateStem` stubs until Demucs/ElevenLabs stem path is approved.
+Re-imported `/Users/rossbhattacharya/Downloads/stitch_pulseforge_ai_music_studio.zip` into `/design`. Screens (Home, Create, Generating, Results, Export) rebuilt to match Stitch HTML/screenshots; Create already matched Phase 1.

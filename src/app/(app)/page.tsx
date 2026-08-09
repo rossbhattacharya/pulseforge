@@ -3,10 +3,9 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
-import { Pause, Play, Plus, Sparkles, Zap } from "lucide-react";
+import { Pause, Play, Plus, Sparkles, Zap, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Panel } from "@/components/ui/panel";
-import { Chip } from "@/components/ui/chip";
 import { MiniWaveform } from "@/components/ui/wave-card";
 import { GENRES } from "@/types";
 import { useState } from "react";
@@ -31,6 +30,13 @@ async function loadHome() {
     }>;
   }>;
 }
+
+const RECENT = [
+  { label: "Ambient", duration: "1:04", seed: 5 },
+  { label: "Techno", duration: "0:12", seed: 6 },
+  { label: "Lo-fi", duration: "2:18", seed: 7 },
+  { label: "FX", duration: "0:45", seed: 8 },
+];
 
 export default function HomePage() {
   const router = useRouter();
@@ -82,12 +88,16 @@ export default function HomePage() {
                 Quick start:
               </span>
               {GENRES.slice(0, 7).map((g) => (
-                <Chip
+                <button
                   key={g}
-                  onClick={() => router.push(`/create?genre=${encodeURIComponent(g)}`)}
+                  type="button"
+                  onClick={() =>
+                    router.push(`/create?genre=${encodeURIComponent(g)}`)
+                  }
+                  className="rounded-full border border-[var(--pf-border)] bg-[var(--pf-panel)] px-3 py-1.5 font-[family-name:var(--font-jetbrains)] text-[12px] text-[#d0bcff] transition-colors hover:border-[#d0bcff] hover:bg-[#d0bcff]/10"
                 >
                   {g}
-                </Chip>
+                </button>
               ))}
             </div>
           </div>
@@ -107,9 +117,7 @@ export default function HomePage() {
           {!isLoading && data?.projects.length === 0 && (
             <Panel className="p-8 text-center">
               <p className="mb-4 text-[var(--pf-muted)]">No projects yet.</p>
-              <Button onClick={() => router.push("/create")}>
-                Start creating
-              </Button>
+              <Button onClick={() => router.push("/create")}>Start creating</Button>
             </Panel>
           )}
           <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
@@ -140,11 +148,7 @@ export default function HomePage() {
                           : "flex h-8 w-8 items-center justify-center rounded-full border border-[var(--pf-border)] text-white"
                       }
                     >
-                      {playing === p.id ? (
-                        <Pause size={16} />
-                      ) : (
-                        <Play size={16} />
-                      )}
+                      {playing === p.id ? <Pause size={16} /> : <Play size={16} />}
                     </button>
                   </div>
                   <MiniWaveform seed={i + 1} />
@@ -155,15 +159,27 @@ export default function HomePage() {
         </section>
 
         <section className="px-8 pb-10 pt-4">
-          <h2 className="mb-6 flex items-center gap-2 font-[family-name:var(--font-space-grotesk)] text-2xl font-semibold text-white">
-            <span className="h-6 w-1.5 rounded-full bg-[var(--pf-magenta)] shadow-[0_0_8px_rgba(255,46,154,0.6)]" />
-            Recent generations
-          </h2>
+          <div className="mb-6 flex items-center justify-between">
+            <h2 className="flex items-center gap-2 font-[family-name:var(--font-space-grotesk)] text-2xl font-semibold text-white">
+              <span className="h-6 w-1.5 rounded-full bg-[var(--pf-magenta)] shadow-[0_0_8px_rgba(255,46,154,0.6)]" />
+              Recent generations
+            </h2>
+            <Link
+              href="/library"
+              className="flex items-center gap-1 text-sm text-[var(--pf-cyan)] hover:underline"
+            >
+              View all <ArrowRight size={14} />
+            </Link>
+          </div>
           <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
-            {["Ambient", "Techno", "House", "Trap"].map((label, i) => (
-              <Panel key={label} className="group cursor-pointer p-3 hover:border-[var(--pf-cyan)]/40">
+            {RECENT.map((item) => (
+              <Panel
+                key={item.label}
+                className="group cursor-pointer p-3 hover:border-[var(--pf-cyan)]/40"
+                onClick={() => router.push("/create")}
+              >
                 <div className="relative mb-3 flex aspect-square items-center justify-center rounded-lg bg-[#0A0A0F]">
-                  <MiniWaveform seed={i + 5} />
+                  <MiniWaveform seed={item.seed} />
                   <div className="absolute inset-0 flex items-center justify-center opacity-0 transition-opacity group-hover:opacity-100">
                     <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[var(--pf-cyan)] text-[#00363d] shadow-[0_0_15px_rgba(0,229,255,0.5)]">
                       <Play size={18} fill="currentColor" />
@@ -171,9 +187,9 @@ export default function HomePage() {
                   </div>
                 </div>
                 <div className="flex items-center justify-between">
-                  <span className="text-sm text-white">{label}</span>
+                  <span className="text-sm text-white">{item.label}</span>
                   <span className="font-[family-name:var(--font-jetbrains)] text-xs text-[var(--pf-muted)]">
-                    0:{(12 + i * 3).toString().padStart(2, "0")}
+                    {item.duration}
                   </span>
                 </div>
               </Panel>
@@ -183,14 +199,21 @@ export default function HomePage() {
       </div>
 
       <aside className="hidden w-80 shrink-0 overflow-y-auto border-l border-[var(--pf-border)] bg-[var(--pf-surface)] p-5 lg:block">
-        <div className="mb-4 flex items-center justify-between">
+        <div className="mb-1 flex items-center justify-between">
           <h2 className="font-[family-name:var(--font-space-grotesk)] text-lg font-semibold text-white">
             Inspiration Bank
           </h2>
-          <button className="flex h-8 w-8 items-center justify-center rounded-lg border border-[var(--pf-border)] text-[var(--pf-cyan)] hover:bg-[var(--pf-cyan)]/10">
+          <button
+            type="button"
+            onClick={() => router.push("/create")}
+            className="flex h-8 w-8 items-center justify-center rounded-lg border border-[var(--pf-border)] text-[var(--pf-cyan)] hover:bg-[var(--pf-cyan)]/10"
+          >
             <Plus size={16} />
           </button>
         </div>
+        <p className="mb-4 text-xs text-[var(--pf-muted)]">
+          Saved seeds and reference tracks
+        </p>
         <div className="space-y-4">
           {data?.references.map((ref) => (
             <Panel key={ref.id} className="p-4">
