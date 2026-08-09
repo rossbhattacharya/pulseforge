@@ -22,6 +22,8 @@ type LocalRef = {
   bpm: number;
   key: string;
   mood_tags: string[];
+  file?: File;
+  fileHash?: string;
 };
 
 export default function CreateClient() {
@@ -41,6 +43,27 @@ export default function CreateClient() {
   const [analyzing, setAnalyzing] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [seedApplied, setSeedApplied] = useState(false);
+  const [creditHint, setCreditHint] = useState<string | null>(null);
+
+  const { data: providerInfo } = useQuery({
+    queryKey: ["providers"],
+    queryFn: async () => {
+      const res = await fetch("/api/providers");
+      return res.json() as Promise<{
+        mode: string;
+        providerId: string;
+        capabilities: {
+          audioConditioning: boolean;
+          stems: boolean;
+          maxRefDurationS: number;
+        };
+        keys: { stability: boolean; elevenlabs: boolean };
+      }>;
+    },
+  });
+
+  const audioConditioningEnabled =
+    providerInfo?.capabilities.audioConditioning ?? false;
 
   const { data } = useQuery({
     queryKey: ["refs"],
@@ -120,6 +143,55 @@ export default function CreateClient() {
     onError: (e: Error) => setError(e.message),
   });
 
+  useEffect(() => {
+    const hasAudio = refs.some((r) => r.mode === "audio" && r.rightsAttested);
+    const per = hasAudio ? 2 : 1;
+    setCreditHint(
+      `${per * takeCount} credits (${per}/take${hasAudio ? ", audio conditioning" : ""})`,
+    );
+  }, [refs, takeCount]);
+
+  async function attestAndStore(ref: LocalRef, checked: boolean) {
+    if (!checked) {
+      setRefs((prev) =>
+        prev.map((r) =>
+          r.analysisId === ref.analysisId
+            ? { ...r, rightsAttested: false, mode: "features" as const }
+            : r,
+        ),
+      );
+      return;
+    }
+    if (!ref.file) {
+      setError("Re-upload the reference to enable audio conditioning.");
+      return;
+    }
+    if (!audioConditioningEnabled) {
+      setError(
+        "Audio conditioning requires MUSIC_PROVIDER=split (or stable) and STABILITY_API_KEY.",
+      );
+      return;
+    }
+    const form = new FormData();
+    form.append("file", ref.file);
+    form.append("analysisId", ref.analysisId);
+    form.append("rightsAttested", "true");
+    if (ref.fileHash) form.append("fileHash", ref.fileHash);
+    const res = await fetch("/api/references", { method: "POST", body: form });
+    const json = await res.json();
+    if (!res.ok) {
+      setError(json.error || "Failed to store attested reference");
+      return;
+    }
+    setRefs((prev) =>
+      prev.map((r) =>
+        r.analysisId === ref.analysisId
+          ? { ...r, rightsAttested: true }
+          : r,
+      ),
+    );
+  }
+
   async function onUpload(file: File) {
     setAnalyzing(true);
     setError(null);
@@ -173,6 +245,8 @@ export default function CreateClient() {
           bpm: ref.bpm,
           key: ref.key,
           mood_tags: ref.mood_tags,
+          file,
+          fileHash,
         },
       ]);
     } catch (e) {
@@ -321,7 +395,11 @@ export default function CreateClient() {
               </h2>
               <p className="mb-4 text-xs text-[var(--pf-muted)]">
                 Feature guidance works with any upload. Audio conditioning
-                requires rights attestation and is never a cover/remix.
+                requires rights attestation
+                {audioConditioningEnabled
+                  ? " and routes to Stable Audio."
+                  : " (enable MUSIC_PROVIDER=split + STABILITY_API_KEY)."}
+                {" "}Provider: {providerInfo?.providerId ?? "…"} ({providerInfo?.mode ?? "…"})
               </p>
               <label className="flex cursor-pointer flex-col items-center justify-center rounded-xl border border-dashed border-[var(--pf-border)] bg-[#0A0A0F] px-6 py-10 transition-colors hover:border-[var(--pf-cyan)]/50">
                 <Upload className="mb-3 text-[var(--pf-cyan)]" size={28} />
@@ -381,7 +459,8 @@ export default function CreateClient() {
                       <Chip
                         selected={ref.mode === "audio"}
                         onClick={() => {
-                          if (!ref.rightsAttested) return;
+                          if (!ref.rightsAttested || !audioConditioningEnabled)
+                            return;
                           setRefs((prev) =>
                             prev.map((r) =>
                               r.analysisId === ref.analysisId
@@ -390,7 +469,11 @@ export default function CreateClient() {
                             ),
                           );
                         }}
-                        className={!ref.rightsAttested ? "opacity-40" : undefined}
+                        className={
+                          !ref.rightsAttested || !audioConditioningEnabled
+                            ? "opacity-40"
+                            : undefined
+                        }
                       >
                         Audio conditioning
                       </Chip>
@@ -400,18 +483,7 @@ export default function CreateClient() {
                         type="checkbox"
                         checked={ref.rightsAttested}
                         onChange={(e) => {
-                          const checked = e.target.checked;
-                          setRefs((prev) =>
-                            prev.map((r) =>
-                              r.analysisId === ref.analysisId
-                                ? {
-                                    ...r,
-                                    rightsAttested: checked,
-                                    mode: checked ? r.mode : "features",
-                                  }
-                                : r,
-                            ),
-                          );
+                          void attestAndStore(ref, e.target.checked);
                         }}
                         className="mt-0.5"
                       />
@@ -503,6 +575,11 @@ export default function CreateClient() {
               {n}
             </Chip>
           ))}
+          {creditHint && (
+            <span className="font-[family-name:var(--font-jetbrains)] text-xs text-[var(--pf-cyan)]">
+              {creditHint}
+            </span>
+          )}
           {error && <span className="text-sm text-red-300">{error}</span>}
         </div>
         <Button

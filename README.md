@@ -26,9 +26,12 @@ Demo mode works without Supabase or API keys. Generation uses `MockMusicProvider
 
 | Variable | Purpose |
 |---|---|
-| `MUSIC_PROVIDER` | `mock` (default) or `stable` |
-| `STABILITY_API_KEY` | Required for Stable Audio adapter |
+| `MUSIC_PROVIDER` | `mock` (default), `split`, `stable`, or `elevenlabs` |
+| `STABILITY_API_KEY` | Required for Stable Audio (audio-conditioning / `split`) |
+| `ELEVENLABS_API_KEY` | Required for ElevenLabs text/vocals/stems (`split`) |
 | `NEXT_PUBLIC_SUPABASE_URL` / `ANON_KEY` / `SUPABASE_SERVICE_ROLE_KEY` | Optional real auth + persistence |
+
+**Confirmed provider split** (`MUSIC_PROVIDER=split`): feature/text jobs → ElevenLabs Music; attested audio-conditioning → Stable Audio 3.0. See `DECISIONS.md`.
 
 Apply `supabase/migrations/001_initial.sql` in your Supabase project, create storage buckets `takes`, `stems`, `exports`, `artwork`, and enable Google OAuth if desired.
 
