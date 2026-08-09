@@ -26,7 +26,7 @@ const bodySchema = z.object({
     vocals: z.boolean(),
     lyrics: z.string().optional(),
     moodTags: z.array(z.string()),
-    takeCount: z.number().min(2).max(8),
+    takeCount: z.number().min(1).max(8),
     references: z.array(
       z.object({
         analysisId: z.string(),

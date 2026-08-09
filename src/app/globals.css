@@ -126,6 +126,6 @@ body {
   animation: pf-pulse 2.4s ease-in-out infinite;
 }
 
-.pf-orbit {
-  animation: pf-orbit 12s linear infinite;
+.generative-glow {
+  box-shadow: 0 0 12px rgba(225, 0, 131, 0.2);
 }

@@ -17,7 +17,7 @@ test("create → generate → results (mock provider)", async ({ page }) => {
   await page.getByPlaceholder(/dreamy melodic techno/i).fill(
     "dark warehouse techno with rolling bass",
   );
-  await page.getByRole("button", { name: /^Generate$/ }).click();
+  await page.getByRole("button", { name: /Generate Track/i }).click();
   await expect(page).toHaveURL(/\/generating\//);
   await expect(page.getByText(/Forging your track/i)).toBeVisible();
   await page.waitForURL(/\/results\//, { timeout: 45_000 });
