@@ -1,0 +1,131 @@
+@import "tailwindcss";
+
+/* Only scan app source — design/ Stitch HTML contains url('placeholder') stubs */
+@source "../**/*.{js,ts,jsx,tsx}";
+@source not "../../design/**/*";
+
+:root {
+  --pf-bg: #0a0a0f;
+  --pf-surface: #12121f;
+  --pf-surface-low: #1a1a28;
+  --pf-panel: #131320;
+  --pf-border: #2a2a3a;
+  --pf-border-subtle: #3b494c;
+  --pf-cyan: #00e5ff;
+  --pf-magenta: #ff2e9a;
+  --pf-violet: #8b5cf6;
+  --pf-success: #3dffa2;
+  --pf-warning: #ffb020;
+  --pf-body: #c8c8d8;
+  --pf-muted: #6e6e85;
+  --pf-heading: #ffffff;
+  --background: var(--pf-bg);
+  --foreground: var(--pf-body);
+}
+
+@theme inline {
+  --color-background: var(--pf-bg);
+  --color-foreground: var(--pf-body);
+  --color-pf-bg: var(--pf-bg);
+  --color-pf-surface: var(--pf-surface);
+  --color-pf-panel: var(--pf-panel);
+  --color-pf-cyan: var(--pf-cyan);
+  --color-pf-magenta: var(--pf-magenta);
+  --color-pf-violet: var(--pf-violet);
+  --font-sans: var(--font-inter);
+  --font-mono: var(--font-jetbrains);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  color-scheme: dark;
+}
+
+body {
+  background: var(--pf-bg);
+  color: var(--pf-body);
+  margin: 0;
+  min-height: 100vh;
+}
+
+.glow-active {
+  box-shadow:
+    inset 0 0 4px rgba(0, 218, 243, 0.15),
+    0 0 12px rgba(0, 218, 243, 0.1);
+}
+
+.glow-hover:hover {
+  box-shadow:
+    inset 0 0 8px rgba(0, 218, 243, 0.2),
+    0 0 16px rgba(0, 218, 243, 0.15);
+  border-color: #00daf3;
+}
+
+.hero-glow {
+  background: radial-gradient(
+    circle at 50% -20%,
+    rgba(20, 16, 31, 0.85) 0%,
+    rgba(10, 10, 15, 0) 70%
+  );
+}
+
+.input-glow:focus-within {
+  border-color: #00daf3;
+  box-shadow: 0 0 0 2px rgba(0, 218, 243, 0.2);
+}
+
+.active-track-strip {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: linear-gradient(to bottom, #00daf3, #e10083);
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #343342;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #00daf3;
+}
+
+@keyframes pf-pulse {
+  0%,
+  100% {
+    opacity: 0.45;
+    transform: scale(0.96);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes pf-orbit {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.pf-pulse {
+  animation: pf-pulse 2.4s ease-in-out infinite;
+}
+
+.pf-orbit {
+  animation: pf-orbit 12s linear infinite;
+}

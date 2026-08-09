@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Pulseforge - Create</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500;700&amp;family=Space+Grotesk:wght@600;700&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-family: 'Material Symbols Outlined';
+            font-weight: normal;
+            font-style: normal;
+            font-size: 24px;
+            line-height: 1;
+            letter-spacing: normal;
+            text-transform: none;
+            display: inline-block;
+            white-space: nowrap;
+            word-wrap: normal;
+            direction: ltr;
+            -webkit-font-feature-settings: 'liga';
+            -webkit-font-smoothing: antialiased;
+        }
+    </style>
+<!-- Tailwind Config -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container-high": "#292937",
+                        "tertiary-container": "#d9c8ff",
+                        "surface-tint": "#00daf3",
+                        "on-primary-container": "#00626e",
+                        "tertiary": "#f2e9ff",
+                        "on-error-container": "#ffdad6",
+                        "tertiary-fixed-dim": "#d0bcff",
+                        "inverse-on-surface": "#2f2f3d",
+                        "secondary-container": "#e10083",
+                        "on-secondary-fixed-variant": "#8d0050",
+                        "surface-container": "#1e1e2c",
+                        "surface-container-lowest": "#0d0d1a",
+                        "surface-container-low": "#1a1a28",
+                        "on-tertiary-container": "#6834d1",
+                        "surface-variant": "#343342",
+                        "secondary": "#ffb0cc",
+                        "on-tertiary-fixed": "#23005c",
+                        "secondary-fixed-dim": "#ffb0cc",
+                        "primary-fixed": "#9cf0ff",
+                        "inverse-surface": "#e3e0f3",
+                        "secondary-fixed": "#ffd9e4",
+                        "error": "#ffb4ab",
+                        "on-surface-variant": "#bac9cc",
+                        "tertiary-fixed": "#e9ddff",
+                        "inverse-primary": "#006875",
+                        "on-tertiary": "#3c0091",
+                        "on-secondary": "#640037",
+                        "primary-fixed-dim": "#00daf3",
+                        "on-primary-fixed-variant": "#004f58",
+                        "on-background": "#e3e0f3",
+                        "background": "#12121f",
+                        "on-error": "#690005",
+                        "on-surface": "#e3e0f3",
+                        "on-primary-fixed": "#001f24",
+                        "outline-variant": "#3b494c",
+                        "on-primary": "#00363d",
+                        "primary": "#c3f5ff",
+                        "surface": "#12121f",
+                        "surface-dim": "#12121f",
+                        "on-secondary-fixed": "#3e0020",
+                        "surface-container-highest": "#343342",
+                        "on-secondary-container": "#fffbff",
+                        "error-container": "#93000a",
+                        "primary-container": "#00e5ff",
+                        "on-tertiary-fixed-variant": "#5516be",
+                        "surface-bright": "#383846",
+                        "outline": "#849396"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "stack-xs": "4px",
+                        "stack-md": "16px",
+                        "gutter": "16px",
+                        "sidebar-width": "64px",
+                        "panel-padding": "20px",
+                        "stack-sm": "8px"
+                    },
+                    "fontFamily": {
+                        "body-fixed": ["JetBrains Mono"],
+                        "headline-lg": ["Space Grotesk"],
+                        "headline-md": ["Space Grotesk"],
+                        "ui-muted": ["Inter"],
+                        "label-caps": ["JetBrains Mono"],
+                        "body-main": ["Inter"]
+                    },
+                    "fontSize": {
+                        "body-fixed": ["13px", { "lineHeight": "1.5", "fontWeight": "500" }],
+                        "headline-lg": ["32px", { "lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "headline-md": ["24px", { "lineHeight": "1.2", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "ui-muted": ["12px", { "lineHeight": "1.4", "fontWeight": "400" }],
+                        "label-caps": ["11px", { "lineHeight": "1.2", "letterSpacing": "0.05em", "fontWeight": "700" }],
+                        "body-main": ["14px", { "lineHeight": "1.6", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        /* Pro-Studio Custom Styling */
+        body {
+            background-color: #12121f;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #12121f;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #343342;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #3b494c;
+        }
+
+        /* Custom Range Slider (Mixer Style) */
+        input[type=range] {
+            -webkit-appearance: none;
+            width: 100%;
+            background: transparent;
+        }
+        input[type=range]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            height: 16px;
+            width: 8px;
+            border-radius: 2px;
+            background: #00e5ff;
+            cursor: pointer;
+            margin-top: -6px;
+            box-shadow: 0 0 8px rgba(0, 229, 255, 0.6);
+        }
+        input[type=range]::-webkit-slider-runnable-track {
+            width: 100%;
+            height: 4px;
+            cursor: pointer;
+            background: #0d0d1a;
+            border: 1px solid #3b494c;
+            border-radius: 2px;
+        }
+        
+        /* Gradient Energy Slider */
+        input.energy-slider::-webkit-slider-runnable-track {
+            background: linear-gradient(to right, #00daf3, #e10083);
+            border: none;
+        }
+        input.energy-slider::-webkit-slider-thumb {
+            background: #fffbff;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+        }
+
+        /* Simulated Waveform Animation */
+        .waveform-bar {
+            width: 2px;
+            background-color: #3b494c;
+            margin: 0 1px;
+            border-radius: 1px;
+            transition: height 0.1s ease;
+        }
+        .waveform-active .waveform-bar {
+            background-color: #00daf3;
+            box-shadow: 0 0 4px rgba(0, 218, 243, 0.4);
+        }
+
+        /* Glow effects */
+        .neon-glow-primary {
+            box-shadow: inset 0 0 12px rgba(0, 218, 243, 0.15), 0 0 8px rgba(0, 218, 243, 0.1);
+        }
+        
+        .generative-glow {
+            box-shadow: 0 0 12px rgba(225, 0, 131, 0.2);
+        }
+
+        /* Toggle Switch */
+        .toggle-checkbox:checked {
+            right: 0;
+            border-color: #00e5ff;
+        }
+        .toggle-checkbox:checked + .toggle-label {
+            background-color: #00e5ff;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background h-screen overflow-hidden flex font-body-main selection:bg-primary-container/30 selection:text-primary-fixed">
+<!-- Shell: SideNavBar -->
+<nav class="w-sidebar-width h-full left-0 top-0 fixed border-r border-outline-variant bg-surface-container-low dark:bg-surface-container-low flex flex-col items-center py-stack-md z-50 transition-all duration-300 md:flex hidden flex-shrink-0">
+<!-- Brand Logo Area -->
+<div class="mb-8 w-full flex justify-center group cursor-pointer" title="Pulseforge">
+<div class="w-10 h-10 rounded-lg bg-surface-container-highest border border-outline-variant flex items-center justify-center overflow-hidden">
+<img alt="Pulseforge Logo" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity" data-alt="A minimalist, futuristic neon geometric logo for a music AI studio, featuring sharp lines in cyan and magenta on a deep black background, highly technical and clean design." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDgNX-CdYLKLbulxBYr0UR27DaQyyG1z0t_8-yqwzMjtP2V-X97Yh0kH43yvntJx5CbkidcRZVNADrjwaHj1sarekIXUL_luKds6L8bGhqM2rzjztyKnFJaSeTX5qVuiyf0Ub8Gg6ZWBQkSoSgDUdRn8KTAUbzHW9ITMGpE1NrcWmZDXpFYgmWyzD2T7JfDSyFSkWqmgLcOrX0vPkSPVChPLIYtpH7irnaFZp70sLaTHC3XwfIHj3dn"/>
+</div>
+</div>
+<!-- Navigation Links -->
+<div class="flex flex-col gap-6 w-full items-center flex-1">
+<!-- Home -->
+<button class="text-on-surface-variant dark:text-on-surface-variant hover:text-primary-fixed dark:hover:text-primary-fixed-dim transition-colors group flex flex-col items-center gap-1 w-full relative" title="Home">
+<span class="material-symbols-outlined group-active:scale-95 duration-100 transition-transform">home</span>
+</button>
+<!-- Library -->
+<button class="text-on-surface-variant dark:text-on-surface-variant hover:text-primary-fixed dark:hover:text-primary-fixed-dim transition-colors group flex flex-col items-center gap-1 w-full relative" title="Library">
+<span class="material-symbols-outlined group-active:scale-95 duration-100 transition-transform">library_music</span>
+</button>
+<!-- Studio (ACTIVE based on mapping to "Create") -->
+<button class="text-primary-fixed dark:text-primary-fixed-dim shadow-[0_0_8px_rgba(0,218,243,0.4)] group flex flex-col items-center gap-1 w-full relative" title="Studio">
+<div class="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-6 bg-primary-fixed rounded-r-full"></div>
+<span class="material-symbols-outlined active:scale-95 duration-100 transition-transform" style="font-variation-settings: 'FILL' 1;">graphic_eq</span>
+</button>
+<!-- Collaboration -->
+<button class="text-on-surface-variant dark:text-on-surface-variant hover:text-primary-fixed dark:hover:text-primary-fixed-dim transition-colors group flex flex-col items-center gap-1 w-full relative" title="Collaboration">
+<span class="material-symbols-outlined group-active:scale-95 duration-100 transition-transform">groups</span>
+</button>
+<!-- Settings -->
+<button class="text-on-surface-variant dark:text-on-surface-variant hover:text-primary-fixed dark:hover:text-primary-fixed-dim transition-colors group flex flex-col items-center gap-1 w-full relative" title="Settings">
+<span class="material-symbols-outlined group-active:scale-95 duration-100 transition-transform">settings</span>
+</button>
+</div>
+<!-- Footer Action -->
+<div class="mt-auto w-full flex justify-center">
+<button class="text-on-surface-variant dark:text-on-surface-variant hover:text-primary-fixed dark:hover:text-primary-fixed-dim transition-colors group flex flex-col items-center" title="Help">
+<span class="material-symbols-outlined group-active:scale-95 duration-100 transition-transform">help</span>
+</button>
+</div>
+</nav>
+<!-- Main Wrapper -->
+<div class="flex-1 flex flex-col md:ml-sidebar-width h-screen relative">
+<!-- Shell: TopNavBar -->
+<header class="bg-surface/80 dark:bg-surface/80 backdrop-blur-xl border-b border-outline-variant docked full-width top-0 sticky flex justify-between items-center h-16 px-gutter z-40">
+<!-- Left: Brand / Section Title -->
+<div class="flex items-center gap-4">
+<h1 class="font-headline-md text-headline-md font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary-container to-secondary-container truncate">
+                    Pulseforge
+                </h1>
+<div class="h-6 w-px bg-outline-variant hidden sm:block"></div>
+<span class="font-ui-muted text-ui-muted text-on-surface-variant tracking-wider uppercase hidden sm:block">
+                    Studio / Create New Track
+                </span>
+</div>
+<!-- Right: Actions & Profile -->
+<div class="flex items-center gap-4">
+<button class="text-on-surface-variant hover:text-primary-fixed transition-colors w-10 h-10 flex items-center justify-center rounded-lg hover:bg-surface-container-highest focus:ring-1 focus:ring-primary-fixed focus:ring-opacity-50">
+<span class="material-symbols-outlined">history</span>
+</button>
+<button class="text-on-surface-variant hover:text-primary-fixed transition-colors w-10 h-10 flex items-center justify-center rounded-lg hover:bg-surface-container-highest focus:ring-1 focus:ring-primary-fixed focus:ring-opacity-50 relative">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-2 right-2 w-2 h-2 bg-secondary-container rounded-full shadow-[0_0_6px_rgba(225,0,131,0.8)]"></span>
+</button>
+<div class="w-8 h-8 rounded-full bg-surface-container-highest border border-outline overflow-hidden ml-2 flex-shrink-0 cursor-pointer hover:border-primary-fixed transition-colors">
+<img alt="Producer Profile Avatar" class="w-full h-full object-cover" data-alt="Close-up portrait of a music producer in a dark studio lit by neon purple and cyan lights, wearing sleek headphones, cinematic lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCDV_dSJCJhgoQiv3IlCBM8S6qxq3uqn2VUN3AVGO6xKee_T-1xIAai7_tvoOdv--KxwlvokQRB3nwQduMn-aTayVwfqdO0IOwNpDk21ewWJVaoTblmehlYshsXIPfuTS4tPkoK69eHJXCk_aBfeHTwKhLmCThVJ3UUuyxouF1LJpE5xypJbM1s9m0x0kcDfyEjoYvVkTaKvlPunFoATeK4H1TwbwihkX_JAF7gWYqBqcMAar6ThjCu"/>
+</div>
+</div>
+</header>
+<!-- Canvas Container -->
+<main class="flex-1 overflow-y-auto pb-32"> <!-- Padding bottom for sticky footer -->
+<div class="max-w-[1600px] mx-auto p-4 md:p-panel-padding">
+<!-- 60/40 Split Grid -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter items-start">
+<!-- Left Column (60%): Describe your track -->
+<div class="lg:col-span-7 flex flex-col gap-6">
+<!-- Header & Generative Button -->
+<div class="flex justify-between items-end border-b border-outline-variant pb-2">
+<h2 class="font-headline-md text-headline-md text-on-surface flex items-center gap-2">
+<span class="material-symbols-outlined text-primary-fixed">text_snippet</span>
+                                Describe your track
+                            </h2>
+<button class="flex items-center gap-2 px-3 py-1.5 border border-secondary-container bg-secondary-container/5 text-secondary-container font-label-caps text-label-caps rounded uppercase tracking-wider hover:bg-secondary-container/10 transition-colors generative-glow group">
+<span class="material-symbols-outlined text-[16px] group-hover:rotate-12 transition-transform">auto_awesome</span>
+                                Enhance prompt with AI
+                            </button>
+</div>
+<!-- Main Prompt Textarea -->
+<div class="relative group">
+<textarea class="w-full bg-surface-container-lowest border border-outline-variant rounded-lg p-4 h-40 resize-none font-body-main text-on-surface placeholder:text-on-surface-variant/50 focus:border-primary-fixed focus:ring-0 focus:outline-none focus:shadow-[0_0_8px_rgba(0,218,243,0.3)] transition-all" placeholder="E.g., A driving cyberpunk techno track with heavy distorted basslines, ethereal vocal chops, and a climactic drop at 1:30. Needs to feel massive and dark."></textarea>
+<div class="absolute bottom-4 right-4 text-ui-muted text-on-surface-variant font-body-fixed">0/500</div>
+</div>
+<!-- Sound Parameters Panel (Bento-style grid) -->
+<div class="bg-surface-container border border-outline-variant rounded-xl p-panel-padding flex flex-col gap-6">
+<h3 class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">tune</span>
+                                Sound Parameters
+                            </h3>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-6">
+<!-- Genre -->
+<div class="flex flex-col gap-2">
+<label class="font-ui-muted text-ui-muted text-on-surface-variant">Primary Genre</label>
+<div class="relative">
+<select class="w-full bg-surface-container-lowest border border-outline-variant rounded px-3 py-2 appearance-none text-on-surface font-body-main focus:border-primary-fixed focus:outline-none transition-colors">
+<option>Cyberpunk Techno</option>
+<option>Synthwave</option>
+<option>Dark Ambient</option>
+<option>Liquid Drum &amp; Bass</option>
+</select>
+<span class="material-symbols-outlined absolute right-2 top-1/2 -translate-y-1/2 text-on-surface-variant pointer-events-none">expand_more</span>
+</div>
+</div>
+<!-- Key -->
+<div class="flex flex-col gap-2">
+<label class="font-ui-muted text-ui-muted text-on-surface-variant">Musical Key (Optional)</label>
+<div class="relative">
+<select class="w-full bg-surface-container-lowest border border-outline-variant rounded px-3 py-2 appearance-none text-on-surface font-body-main focus:border-primary-fixed focus:outline-none transition-colors">
+<option>Auto-detect</option>
+<option>F Minor</option>
+<option>C Minor</option>
+<option>G Major</option>
+</select>
+<span class="material-symbols-outlined absolute right-2 top-1/2 -translate-y-1/2 text-on-surface-variant pointer-events-none">expand_more</span>
+</div>
+</div>
+<!-- BPM Slider -->
+<div class="flex flex-col gap-2 sm:col-span-2">
+<div class="flex justify-between items-end">
+<label class="font-ui-muted text-ui-muted text-on-surface-variant">Tempo (BPM)</label>
+<span class="font-body-fixed text-body-fixed text-primary-fixed">128</span>
+</div>
+<input class="mt-2" max="180" min="60" type="range" value="128"/>
+<div class="flex justify-between text-[10px] text-on-surface-variant/50 font-body-fixed mt-1">
+<span>60</span>
+<span>120</span>
+<span>180</span>
+</div>
+</div>
+<!-- Duration Segments -->
+<div class="flex flex-col gap-2 sm:col-span-2">
+<label class="font-ui-muted text-ui-muted text-on-surface-variant">Duration</label>
+<div class="flex rounded-lg overflow-hidden border border-outline-variant bg-surface-container-lowest h-9">
+<button class="flex-1 border-r border-outline-variant hover:bg-surface-variant transition-colors text-on-surface-variant font-label-caps text-label-caps">30s</button>
+<button class="flex-1 border-r border-outline-variant hover:bg-surface-variant transition-colors text-on-surface-variant font-label-caps text-label-caps">1m</button>
+<button class="flex-1 border-r border-outline-variant bg-primary-container/10 text-primary-fixed shadow-[inset_0_-2px_0_#00e5ff] font-label-caps text-label-caps">2m</button>
+<button class="flex-1 hover:bg-surface-variant transition-colors text-on-surface-variant font-label-caps text-label-caps">3m+</button>
+</div>
+</div>
+<!-- Energy Slider -->
+<div class="flex flex-col gap-2 sm:col-span-2 mt-2">
+<div class="flex justify-between items-end">
+<label class="font-ui-muted text-ui-muted text-on-surface-variant">Energy Level</label>
+<span class="font-ui-muted text-ui-muted text-secondary-container">Peak</span>
+</div>
+<input class="energy-slider mt-2" max="100" min="1" type="range" value="85"/>
+<div class="flex justify-between text-[10px] text-on-surface-variant/50 uppercase tracking-widest mt-1">
+<span>Chill</span>
+<span>Peak</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Vocals Toggle & Tags Panel -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<!-- Vocals Control -->
+<div class="bg-surface-container border border-outline-variant rounded-xl p-4 flex flex-col gap-4">
+<div class="flex justify-between items-center">
+<span class="font-label-caps text-label-caps text-on-surface-variant flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">mic</span>
+                                        Vocals
+                                    </span>
+<!-- Toggle -->
+<div class="relative inline-block w-10 mr-2 align-middle select-none transition duration-200 ease-in">
+<input checked="" class="toggle-checkbox absolute block w-5 h-5 rounded-full bg-white border-4 appearance-none cursor-pointer border-outline-variant transition-all duration-300 right-5 z-10" id="toggle" name="toggle" type="checkbox"/>
+<label class="toggle-label block overflow-hidden h-5 rounded-full bg-surface-variant cursor-pointer transition-colors duration-300" for="toggle"></label>
+</div>
+</div>
+<textarea class="w-full bg-surface-container-lowest border border-outline-variant rounded p-3 h-20 resize-none font-body-main text-[13px] text-on-surface placeholder:text-on-surface-variant/50 focus:border-primary-fixed focus:ring-0 focus:outline-none transition-all" placeholder="Describe vocal style (e.g., heavily reverbed female spoken word, aggressive chopped chops)...">Ethereal female vocal chops, heavily delayed, in key.</textarea>
+</div>
+<!-- Mood Tags -->
+<div class="bg-surface-container border border-outline-variant rounded-xl p-4 flex flex-col gap-4">
+<span class="font-label-caps text-label-caps text-on-surface-variant flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">mood</span>
+                                    Mood DNA
+                                </span>
+<div class="flex flex-wrap gap-2">
+<span class="px-2 py-1 rounded border border-primary-fixed bg-primary-container/10 text-primary-fixed font-body-fixed text-[11px] cursor-pointer shadow-[0_0_8px_rgba(0,218,243,0.2)]">Dark</span>
+<span class="px-2 py-1 rounded border border-outline-variant bg-surface-container-low text-tertiary-fixed-dim font-body-fixed text-[11px] cursor-pointer hover:border-tertiary-fixed-dim transition-colors">Euphoric</span>
+<span class="px-2 py-1 rounded border border-primary-fixed bg-primary-container/10 text-primary-fixed font-body-fixed text-[11px] cursor-pointer shadow-[0_0_8px_rgba(0,218,243,0.2)]">Aggressive</span>
+<span class="px-2 py-1 rounded border border-outline-variant bg-surface-container-low text-tertiary-fixed-dim font-body-fixed text-[11px] cursor-pointer hover:border-tertiary-fixed-dim transition-colors">Melancholic</span>
+<span class="px-2 py-1 rounded border border-outline-variant bg-surface-container-low text-tertiary-fixed-dim font-body-fixed text-[11px] cursor-pointer hover:border-tertiary-fixed-dim transition-colors">Groovy</span>
+<span class="px-2 py-1 rounded border border-outline-variant bg-surface-container-low text-tertiary-fixed-dim font-body-fixed text-[11px] cursor-pointer hover:border-tertiary-fixed-dim transition-colors">Atmospheric</span>
+<span class="material-symbols-outlined text-outline hover:text-on-surface cursor-pointer text-[18px] self-center ml-1">add</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Column (40%): Inspiration / References -->
+<div class="lg:col-span-5 flex flex-col gap-6">
+<div class="border-b border-outline-variant pb-2">
+<h2 class="font-headline-md text-headline-md text-on-surface flex items-center gap-2">
+<span class="material-symbols-outlined text-tertiary-fixed-dim">hub</span>
+                                Inspiration
+                            </h2>
+</div>
+<!-- Dropzone -->
+<div class="border-2 border-dashed border-outline-variant rounded-xl p-8 flex flex-col items-center justify-center text-center bg-surface-container-low/50 hover:bg-surface-container-low hover:border-primary-fixed/50 transition-all cursor-pointer group">
+<div class="w-12 h-12 rounded-full bg-surface-variant flex items-center justify-center mb-3 group-hover:bg-primary-container/10 group-hover:text-primary-fixed transition-colors">
+<span class="material-symbols-outlined">upload_file</span>
+</div>
+<span class="font-body-main text-on-surface">Drag &amp; drop reference tracks</span>
+<span class="font-ui-muted text-ui-muted text-on-surface-variant mt-1">MP3, WAV, FLAC (Max 20MB)</span>
+</div>
+<!-- Analyzed Reference Cards List -->
+<div class="flex flex-col gap-4">
+<!-- Reference Card 1 (Active/Playing) -->
+<div class="bg-surface-container border border-outline-variant rounded-lg relative overflow-hidden flex flex-col">
+<!-- Neon Left Strip -->
+<div class="absolute left-0 top-0 bottom-0 w-[2px] bg-gradient-to-b from-primary-container to-secondary-container shadow-[0_0_8px_rgba(0,229,255,0.5)]"></div>
+<div class="p-4 flex flex-col gap-4 pl-5">
+<!-- Header -->
+<div class="flex justify-between items-start">
+<div class="flex items-center gap-3">
+<button class="w-8 h-8 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center hover:scale-105 transition-transform shadow-[0_0_10px_rgba(0,229,255,0.3)]">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">pause</span>
+</button>
+<div class="flex flex-col">
+<span class="font-body-fixed text-body-fixed text-on-surface truncate w-40 sm:w-48">gesaffelstein_ref_01.wav</span>
+<span class="font-ui-muted text-ui-muted text-primary-fixed">Analyzing DNA...</span>
+</div>
+</div>
+<button class="text-on-surface-variant hover:text-error transition-colors">
+<span class="material-symbols-outlined text-[18px]">close</span>
+</button>
+</div>
+<!-- Waveform & Data Chips -->
+<div class="flex items-center gap-4 bg-surface-container-lowest p-2 rounded border border-outline-variant/50">
+<!-- Simulated Waveform -->
+<div class="flex-1 h-8 flex items-end gap-[1px] waveform-active overflow-hidden">
+<script>
+                                                for(let i=0; i<30; i++) {
+                                                    let h = Math.random() * 100;
+                                                    document.write(`<div class="waveform-bar" style="height: ${h}%"></div>`);
+                                                }
+                                            </script>
+</div>
+<!-- Chips -->
+<div class="flex flex-col gap-1 shrink-0">
+<span class="bg-surface-variant px-1.5 py-0.5 rounded text-[9px] font-body-fixed text-on-surface-variant text-right">108 BPM</span>
+<span class="bg-surface-variant px-1.5 py-0.5 rounded text-[9px] font-body-fixed text-on-surface-variant text-right">F Min</span>
+</div>
+</div>
+<!-- Influence Sliders -->
+<div class="grid grid-cols-3 gap-4">
+<div class="flex flex-col gap-1">
+<span class="text-[10px] uppercase font-label-caps text-on-surface-variant">Rhythm</span>
+<div class="h-1 bg-surface-container-lowest border border-outline-variant rounded overflow-hidden">
+<div class="h-full bg-primary-fixed w-[80%]"></div>
+</div>
+</div>
+<div class="flex flex-col gap-1">
+<span class="text-[10px] uppercase font-label-caps text-on-surface-variant">Mood</span>
+<div class="h-1 bg-surface-container-lowest border border-outline-variant rounded overflow-hidden">
+<div class="h-full bg-tertiary-fixed-dim w-[40%]"></div>
+</div>
+</div>
+<div class="flex flex-col gap-1">
+<span class="text-[10px] uppercase font-label-caps text-on-surface-variant">Inst</span>
+<div class="h-1 bg-surface-container-lowest border border-outline-variant rounded overflow-hidden">
+<div class="h-full bg-secondary-container w-[60%]"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Reference Card 2 (Inactive) -->
+<div class="bg-surface-container border border-outline-variant rounded-lg relative overflow-hidden flex flex-col opacity-80 hover:opacity-100 transition-opacity">
+<div class="absolute left-0 top-0 bottom-0 w-[2px] bg-outline-variant"></div>
+<div class="p-4 flex flex-col gap-4 pl-5">
+<div class="flex justify-between items-start">
+<div class="flex items-center gap-3">
+<button class="w-8 h-8 rounded-full bg-surface-variant text-on-surface flex items-center justify-center hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
+</button>
+<div class="flex flex-col">
+<span class="font-body-fixed text-body-fixed text-on-surface truncate w-40 sm:w-48">synth_texture_drone.flac</span>
+<span class="font-ui-muted text-ui-muted text-on-surface-variant">Analyzed</span>
+</div>
+</div>
+<button class="text-on-surface-variant hover:text-error transition-colors">
+<span class="material-symbols-outlined text-[18px]">close</span>
+</button>
+</div>
+<div class="flex items-center gap-4 bg-surface-container-lowest p-2 rounded border border-outline-variant/50">
+<div class="flex-1 h-8 flex items-end gap-[1px] overflow-hidden opacity-50">
+<script>
+                                                for(let i=0; i<30; i++) {
+                                                    let h = Math.random() * 50 + 10;
+                                                    document.write(`<div class="waveform-bar" style="height: ${h}%"></div>`);
+                                                }
+                                            </script>
+</div>
+<div class="flex flex-col gap-1 shrink-0">
+<span class="bg-surface-variant px-1.5 py-0.5 rounded text-[9px] font-body-fixed text-on-surface-variant text-right">-- BPM</span>
+<span class="bg-surface-variant px-1.5 py-0.5 rounded text-[9px] font-body-fixed text-on-surface-variant text-right">Unk</span>
+</div>
+</div>
+<div class="grid grid-cols-3 gap-4">
+<div class="flex flex-col gap-1">
+<span class="text-[10px] uppercase font-label-caps text-on-surface-variant">Rhythm</span>
+<div class="h-1 bg-surface-container-lowest border border-outline-variant rounded overflow-hidden">
+<div class="h-full bg-outline w-[10%]"></div>
+</div>
+</div>
+<div class="flex flex-col gap-1">
+<span class="text-[10px] uppercase font-label-caps text-on-surface-variant">Mood</span>
+<div class="h-1 bg-surface-container-lowest border border-outline-variant rounded overflow-hidden">
+<div class="h-full bg-tertiary-fixed-dim w-[85%]"></div>
+</div>
+</div>
+<div class="flex flex-col gap-1">
+<span class="text-[10px] uppercase font-label-caps text-on-surface-variant">Inst</span>
+<div class="h-1 bg-surface-container-lowest border border-outline-variant rounded overflow-hidden">
+<div class="h-full bg-secondary-container w-[30%]"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Sticky Footer Bar (Action Area) -->
+<div class="fixed bottom-0 md:left-sidebar-width left-0 right-0 bg-[#131320]/80 backdrop-blur-[20px] border-t border-outline-variant p-4 z-40 flex justify-between items-center px-4 md:px-panel-padding shadow-[0_-10px_30px_rgba(0,0,0,0.5)]">
+<!-- Left Info -->
+<div class="flex items-center gap-6">
+<div class="flex flex-col hidden sm:flex">
+<span class="font-ui-muted text-ui-muted text-on-surface-variant uppercase tracking-widest">Est. Render</span>
+<span class="font-body-fixed text-body-fixed text-on-surface flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px] text-tertiary-fixed-dim">timer</span>
+                        ~ 1m 45s
+                    </span>
+</div>
+<div class="h-8 w-px bg-outline-variant hidden sm:block"></div>
+<div class="flex flex-col">
+<span class="font-ui-muted text-ui-muted text-on-surface-variant uppercase tracking-widest mb-1">Output Takes</span>
+<div class="flex bg-surface-container-lowest border border-outline-variant rounded overflow-hidden">
+<button class="px-3 py-1 text-on-surface-variant hover:bg-surface-variant transition-colors font-body-fixed text-[12px] border-r border-outline-variant">1</button>
+<button class="px-3 py-1 text-on-surface-variant hover:bg-surface-variant transition-colors font-body-fixed text-[12px] border-r border-outline-variant">2</button>
+<button class="px-3 py-1 bg-primary-container/20 text-primary-fixed shadow-[inset_0_-2px_0_#00e5ff] font-body-fixed text-[12px]">4</button>
+</div>
+</div>
+</div>
+<!-- Generate Action -->
+<button class="h-12 px-8 rounded-lg bg-gradient-to-r from-primary-container to-secondary-container text-[#fffbff] font-headline-md text-[18px] flex items-center gap-3 hover:opacity-90 hover:scale-[0.98] transition-all shadow-[0_0_20px_rgba(225,0,131,0.3)]">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">bolt</span>
+                Generate Track
+            </button>
+</div>
+</div>
+</body></html>

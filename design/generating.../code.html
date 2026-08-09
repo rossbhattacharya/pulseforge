@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Pulseforge - Generating</title>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500;700&amp;family=Space+Grotesk:wght@600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container-high": "#292937",
+                        "tertiary-container": "#d9c8ff",
+                        "surface-tint": "#00daf3",
+                        "on-primary-container": "#00626e",
+                        "tertiary": "#f2e9ff",
+                        "on-error-container": "#ffdad6",
+                        "tertiary-fixed-dim": "#d0bcff",
+                        "inverse-on-surface": "#2f2f3d",
+                        "secondary-container": "#e10083",
+                        "on-secondary-fixed-variant": "#8d0050",
+                        "surface-container": "#1e1e2c",
+                        "surface-container-lowest": "#0d0d1a",
+                        "surface-container-low": "#1a1a28",
+                        "on-tertiary-container": "#6834d1",
+                        "surface-variant": "#343342",
+                        "secondary": "#ffb0cc",
+                        "on-tertiary-fixed": "#23005c",
+                        "secondary-fixed-dim": "#ffb0cc",
+                        "primary-fixed": "#9cf0ff",
+                        "inverse-surface": "#e3e0f3",
+                        "secondary-fixed": "#ffd9e4",
+                        "error": "#ffb4ab",
+                        "on-surface-variant": "#bac9cc",
+                        "tertiary-fixed": "#e9ddff",
+                        "inverse-primary": "#006875",
+                        "on-tertiary": "#3c0091",
+                        "on-secondary": "#640037",
+                        "primary-fixed-dim": "#00daf3",
+                        "on-primary-fixed-variant": "#004f58",
+                        "on-background": "#e3e0f3",
+                        "background": "#12121f",
+                        "on-error": "#690005",
+                        "on-surface": "#e3e0f3",
+                        "on-primary-fixed": "#001f24",
+                        "outline-variant": "#3b494c",
+                        "on-primary": "#00363d",
+                        "primary": "#c3f5ff",
+                        "surface": "#12121f",
+                        "surface-dim": "#12121f",
+                        "on-secondary-fixed": "#3e0020",
+                        "surface-container-highest": "#343342",
+                        "on-secondary-container": "#fffbff",
+                        "error-container": "#93000a",
+                        "primary-container": "#00e5ff",
+                        "on-tertiary-fixed-variant": "#5516be",
+                        "surface-bright": "#383846",
+                        "outline": "#849396"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "stack-xs": "4px",
+                        "stack-md": "16px",
+                        "gutter": "16px",
+                        "sidebar-width": "64px",
+                        "panel-padding": "20px",
+                        "stack-sm": "8px"
+                    },
+                    "fontFamily": {
+                        "body-fixed": ["JetBrains Mono"],
+                        "headline-lg": ["Space Grotesk"],
+                        "headline-md": ["Space Grotesk"],
+                        "ui-muted": ["Inter"],
+                        "label-caps": ["JetBrains Mono"],
+                        "body-main": ["Inter"]
+                    },
+                    "fontSize": {
+                        "body-fixed": ["13px", { "lineHeight": "1.5", "fontWeight": "500" }],
+                        "headline-lg": ["32px", { "lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "headline-md": ["24px", { "lineHeight": "1.2", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "ui-muted": ["12px", { "lineHeight": "1.4", "fontWeight": "400" }],
+                        "label-caps": ["11px", { "lineHeight": "1.2", "letterSpacing": "0.05em", "fontWeight": "700" }],
+                        "body-main": ["14px", { "lineHeight": "1.6", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        /* Vaporwave-Technical Keyframes */
+        @keyframes eq-pulse {
+            0% { height: 15%; opacity: 0.4; filter: drop-shadow(0 0 2px rgba(0, 218, 243, 0.2)); }
+            100% { height: 100%; opacity: 1; filter: drop-shadow(0 0 8px rgba(225, 0, 131, 0.8)); }
+        }
+        
+        .eq-bar {
+            transform-origin: bottom;
+            animation: eq-pulse 0.8s ease-in-out infinite alternate;
+        }
+
+        /* Ambient background glow */
+        .ambient-bg {
+            background: radial-gradient(circle at center, rgba(0, 218, 243, 0.05) 0%, rgba(18, 18, 31, 1) 60%);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface min-h-screen flex flex-col items-center justify-center relative overflow-hidden ambient-bg p-6">
+<!-- Grid overlay for technical feel -->
+<div class="absolute inset-0 pointer-events-none opacity-[0.03]" style="background-image: linear-gradient(#3b494c 1px, transparent 1px), linear-gradient(90deg, #3b494c 1px, transparent 1px); background-size: 32px 32px;"></div>
+<!-- Main Content Wrapper -->
+<main class="relative z-10 w-full max-w-2xl flex flex-col items-center justify-between h-full min-h-[80vh]">
+<!-- Top: Quote Card -->
+<div class="w-full max-w-lg bg-surface-container-low/60 backdrop-blur-xl border border-outline-variant p-panel-padding rounded-xl flex flex-col gap-stack-sm text-center shadow-lg">
+<p class="font-body-main text-body-main text-on-surface italic">"A driving synthwave baseline with heavily modulated arpeggios, atmospheric pads, and a punchy retro drum kit."</p>
+<div class="flex flex-wrap justify-center gap-2 mt-2">
+<span class="font-label-caps text-label-caps text-tertiary-container border border-tertiary-container/30 bg-tertiary-container/10 px-3 py-1 rounded-full tracking-widest uppercase">Genre: Synthwave</span>
+<span class="font-label-caps text-label-caps text-tertiary-container border border-tertiary-container/30 bg-tertiary-container/10 px-3 py-1 rounded-full tracking-widest uppercase">BPM: 124</span>
+<span class="font-label-caps text-label-caps text-tertiary-container border border-tertiary-container/30 bg-tertiary-container/10 px-3 py-1 rounded-full tracking-widest uppercase">Key: Cm</span>
+</div>
+</div>
+<!-- Center: Main Visual -->
+<div class="flex flex-col items-center justify-center flex-grow py-12">
+<div class="relative w-80 h-80 flex items-center justify-center mb-8">
+<!-- JS Populated EQ Ring -->
+<div class="absolute inset-0 w-full h-full pointer-events-none" id="eq-ring"></div>
+<!-- Center Display -->
+<div class="absolute w-56 h-56 rounded-full bg-surface-container shadow-[inset_0_0_30px_rgba(0,218,243,0.05)] border border-outline-variant flex flex-col items-center justify-center z-10 backdrop-blur-md">
+<h1 class="font-headline-lg text-headline-lg text-primary-container bg-clip-text text-transparent bg-gradient-to-r from-primary-fixed to-secondary-container mb-1">62%</h1>
+<p class="font-label-caps text-label-caps text-primary-fixed tracking-widest uppercase animate-pulse">Composing</p>
+</div>
+</div>
+<p class="font-ui-muted text-ui-muted text-on-surface-variant animate-pulse">Laying down the bassline...</p>
+</div>
+<!-- Bottom section: Tracker & Footer -->
+<div class="w-full flex flex-col items-center gap-12 mt-auto">
+<!-- Progress Tracker -->
+<div class="flex items-center justify-center w-full max-w-lg">
+<!-- Step 1 -->
+<div class="flex flex-col items-center gap-stack-xs opacity-60 w-24 text-center">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="check_circle">check_circle</span>
+<span class="font-ui-muted text-ui-muted text-on-surface-variant">Interpreting</span>
+</div>
+<!-- Connector -->
+<div class="h-px flex-grow bg-outline-variant opacity-60 mx-2"></div>
+<!-- Step 2 -->
+<div class="flex flex-col items-center gap-stack-xs opacity-60 w-24 text-center">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="check_circle">check_circle</span>
+<span class="font-ui-muted text-ui-muted text-on-surface-variant">Structure</span>
+</div>
+<!-- Connector -->
+<div class="h-px flex-grow bg-primary-fixed/50 mx-2 relative overflow-hidden">
+<div class="absolute top-0 left-0 h-full w-1/2 bg-primary-container blur-[1px] animate-[translateX_1s_linear_infinite]"></div>
+</div>
+<!-- Step 3 (Active) -->
+<div class="flex flex-col items-center gap-stack-xs w-24 text-center">
+<div class="relative">
+<div class="absolute inset-0 bg-primary-container blur-md opacity-40 rounded-full animate-pulse"></div>
+<span class="material-symbols-outlined text-primary-fixed relative z-10 drop-shadow-[0_0_8px_rgba(0,218,243,0.8)]" data-icon="graphic_eq">graphic_eq</span>
+</div>
+<span class="font-ui-muted text-ui-muted text-primary-fixed font-semibold">Generating</span>
+</div>
+<!-- Connector -->
+<div class="h-px flex-grow bg-outline-variant opacity-30 mx-2"></div>
+<!-- Step 4 -->
+<div class="flex flex-col items-center gap-stack-xs opacity-30 w-24 text-center">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="radio_button_unchecked">radio_button_unchecked</span>
+<span class="font-ui-muted text-ui-muted text-on-surface-variant">Mastering</span>
+</div>
+</div>
+<!-- Footer Actions -->
+<div class="flex flex-col items-center gap-stack-md">
+<p class="font-ui-muted text-ui-muted text-on-surface-variant">You can safely navigate away. We'll notify you when rendering is complete.</p>
+<button class="bg-transparent border border-outline-variant text-primary-fixed font-label-caps text-label-caps px-8 py-3 rounded hover:bg-surface-container-high transition-colors tracking-widest uppercase flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px]" data-icon="close">close</span>
+                    Cancel Generation
+                </button>
+</div>
+</div>
+</main>
+<script>
+        // Generate the audio-reactive ring
+        const ring = document.getElementById('eq-ring');
+        const numBars = 64;
+        const radius = 150; // Distance from center
+
+        for (let i = 0; i < numBars; i++) {
+            const barContainer = document.createElement('div');
+            barContainer.className = 'absolute top-1/2 left-1/2 w-1.5 -ml-[3px] origin-bottom';
+            
+            const angle = (360 / numBars) * i;
+            // Position container along the circle
+            barContainer.style.transform = `rotate(${angle}deg) translateY(-${radius}px)`;
+            barContainer.style.height = '48px'; // Max expansion height
+
+            const bar = document.createElement('div');
+            // Gradient matches primary to secondary theme colors
+            bar.className = 'w-full bottom-0 absolute rounded-full bg-gradient-to-t from-primary-container to-secondary-container eq-bar';
+            
+            // Randomize animation to simulate EQ
+            const delay = Math.random() * -2; // Negative delay to start immediately
+            const duration = 0.4 + Math.random() * 0.6;
+            
+            bar.style.animationDelay = `${delay}s`;
+            bar.style.animationDuration = `${duration}s`;
+
+            barContainer.appendChild(bar);
+            ring.appendChild(barContainer);
+        }
+    </script>
+</body></html>

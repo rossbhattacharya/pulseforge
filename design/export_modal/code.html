@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Export Track - Pulseforge</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500;700&amp;family=Space+Grotesk:wght@600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "surface-container-high": "#292937",
+                      "tertiary-container": "#d9c8ff",
+                      "surface-tint": "#00daf3",
+                      "on-primary-container": "#00626e",
+                      "tertiary": "#f2e9ff",
+                      "on-error-container": "#ffdad6",
+                      "tertiary-fixed-dim": "#d0bcff",
+                      "inverse-on-surface": "#2f2f3d",
+                      "secondary-container": "#e10083",
+                      "on-secondary-fixed-variant": "#8d0050",
+                      "surface-container": "#1e1e2c",
+                      "surface-container-lowest": "#0d0d1a",
+                      "surface-container-low": "#1a1a28",
+                      "on-tertiary-container": "#6834d1",
+                      "surface-variant": "#343342",
+                      "secondary": "#ffb0cc",
+                      "on-tertiary-fixed": "#23005c",
+                      "secondary-fixed-dim": "#ffb0cc",
+                      "primary-fixed": "#9cf0ff",
+                      "inverse-surface": "#e3e0f3",
+                      "secondary-fixed": "#ffd9e4",
+                      "error": "#ffb4ab",
+                      "on-surface-variant": "#bac9cc",
+                      "tertiary-fixed": "#e9ddff",
+                      "inverse-primary": "#006875",
+                      "on-tertiary": "#3c0091",
+                      "on-secondary": "#640037",
+                      "primary-fixed-dim": "#00daf3",
+                      "on-primary-fixed-variant": "#004f58",
+                      "on-background": "#e3e0f3",
+                      "background": "#12121f",
+                      "on-error": "#690005",
+                      "on-surface": "#e3e0f3",
+                      "on-primary-fixed": "#001f24",
+                      "outline-variant": "#3b494c",
+                      "on-primary": "#00363d",
+                      "primary": "#c3f5ff",
+                      "surface": "#12121f",
+                      "surface-dim": "#12121f",
+                      "on-secondary-fixed": "#3e0020",
+                      "surface-container-highest": "#343342",
+                      "on-secondary-container": "#fffbff",
+                      "error-container": "#93000a",
+                      "primary-container": "#00e5ff",
+                      "on-tertiary-fixed-variant": "#5516be",
+                      "surface-bright": "#383846",
+                      "outline": "#849396"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "stack-xs": "4px",
+                      "stack-md": "16px",
+                      "gutter": "16px",
+                      "sidebar-width": "64px",
+                      "panel-padding": "20px",
+                      "stack-sm": "8px"
+              },
+              "fontFamily": {
+                      "body-fixed": [
+                              "JetBrains Mono"
+                      ],
+                      "headline-lg": [
+                              "Space Grotesk"
+                      ],
+                      "headline-md": [
+                              "Space Grotesk"
+                      ],
+                      "ui-muted": [
+                              "Inter"
+                      ],
+                      "label-caps": [
+                              "JetBrains Mono"
+                      ],
+                      "body-main": [
+                              "Inter"
+                      ]
+              },
+              "fontSize": {
+                      "body-fixed": [
+                              "13px",
+                              {
+                                      "lineHeight": "1.5",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "headline-lg": [
+                              "32px",
+                              {
+                                      "lineHeight": "1.1",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "headline-md": [
+                              "24px",
+                              {
+                                      "lineHeight": "1.2",
+                                      "letterSpacing": "-0.01em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "ui-muted": [
+                              "12px",
+                              {
+                                      "lineHeight": "1.4",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "label-caps": [
+                              "11px",
+                              {
+                                      "lineHeight": "1.2",
+                                      "letterSpacing": "0.05em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "body-main": [
+                              "14px",
+                              {
+                                      "lineHeight": "1.6",
+                                      "fontWeight": "400"
+                              }
+                      ]
+              }
+            }
+          }
+        }
+    </script>
+<style>
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #1e1e2c;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #343342;
+            border-radius: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #3b494c;
+        }
+        .glow-active {
+            box-shadow: inset 0 0 12px rgba(0, 218, 243, 0.15), 0 0 8px rgba(0, 218, 243, 0.3);
+        }
+        .gradient-text {
+            background: linear-gradient(90deg, #00e5ff 0%, #e10083 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body-main antialiased h-screen w-screen overflow-hidden flex flex-col">
+<!-- Dimmed Editor Background (Simulated) -->
+<div class="absolute inset-0 z-0 bg-[url('placeholder')] bg-cover bg-center opacity-30" data-alt="A highly detailed screenshot of a professional digital audio workstation interface. The interface is complex, dense with tracks, waveforms, mixer sliders, and modular synth components. The color scheme is deep obsidian, dark greys, punctuated by neon cyan and magenta highlights. The scene feels like a futuristic, vaporwave-inspired music studio environment. Pro-Studio at Midnight aesthetic."></div>
+<div class="absolute inset-0 z-0 bg-[#131320]/80 backdrop-blur-[20px]"></div>
+<!-- Modal Overlay -->
+<div class="absolute inset-0 z-[100] flex items-center justify-center p-4">
+<!-- Modal Container -->
+<div class="w-full max-w-[560px] bg-surface-container rounded-xl border border-outline-variant shadow-[0_20px_40px_rgba(0,0,0,0.8)] overflow-hidden flex flex-col relative" style="box-shadow: inset 0 0 0 1px rgba(0, 218, 243, 0.05), 0 24px 48px -12px rgba(0,0,0,0.9);">
+<!-- Top Decorative Edge -->
+<div class="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-primary-container via-secondary-container to-tertiary-container opacity-50"></div>
+<!-- Header -->
+<div class="px-6 py-5 border-b border-outline-variant/50 flex justify-between items-center bg-surface-container-lowest/30">
+<div>
+<h2 class="font-headline-md text-headline-md text-on-surface flex items-center gap-2">
+                        Export <span class="gradient-text">"Midnight Circuit v3"</span>
+</h2>
+</div>
+<button class="text-on-surface-variant hover:text-primary-fixed transition-colors">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">close</span>
+</button>
+</div>
+<!-- Body (Scrollable) -->
+<div class="px-6 py-6 flex-1 overflow-y-auto custom-scrollbar flex flex-col gap-8 bg-surface-container-low/20">
+<!-- Format Section -->
+<section>
+<h3 class="font-label-caps text-label-caps text-on-surface-variant mb-4 uppercase tracking-wider flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px]">audio_file</span> Format
+                    </h3>
+<div class="flex rounded-lg border border-outline-variant overflow-hidden bg-surface-container-highest p-1">
+<button class="flex-1 py-2 px-3 rounded-md bg-surface border border-outline-variant text-primary-fixed flex flex-col items-center gap-1 shadow-sm transition-all relative z-10 glow-active">
+<span class="font-body-fixed text-[12px] font-bold">WAV</span>
+<span class="font-ui-muted text-ui-muted text-on-surface-variant opacity-70">48kHz / 24bit</span>
+</button>
+<button class="flex-1 py-2 px-3 rounded-md text-on-surface-variant hover:text-on-surface flex flex-col items-center gap-1 transition-all border border-transparent">
+<span class="font-body-fixed text-[12px] font-bold">MP3</span>
+<span class="font-ui-muted text-ui-muted opacity-70">320kbps</span>
+</button>
+<button class="flex-1 py-2 px-3 rounded-md text-on-surface-variant hover:text-on-surface flex flex-col items-center gap-1 transition-all border border-transparent">
+<span class="font-body-fixed text-[12px] font-bold">STEMS</span>
+<span class="font-ui-muted text-ui-muted opacity-70">Multi-track</span>
+</button>
+</div>
+</section>
+<!-- Mastering Profile -->
+<section>
+<h3 class="font-label-caps text-label-caps text-on-surface-variant mb-4 uppercase tracking-wider flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px]">graphic_eq</span> Mastering Profile
+                    </h3>
+<div class="grid grid-cols-3 gap-3">
+<!-- Streaming Card -->
+<div class="border border-outline-variant bg-[#0A0A0F] rounded-lg p-4 cursor-pointer hover:border-primary-fixed/50 transition-colors group">
+<div class="text-on-surface-variant group-hover:text-primary-fixed mb-2">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">podcasts</span>
+</div>
+<h4 class="font-body-fixed text-body-fixed text-on-surface mb-1">Streaming</h4>
+<p class="font-ui-muted text-ui-muted text-on-surface-variant/60">-14 LUFS</p>
+</div>
+<!-- Club Card (Selected) -->
+<div class="border border-primary-fixed bg-[#0A0A0F] rounded-lg p-4 cursor-pointer relative overflow-hidden group shadow-[inset_0_0_12px_rgba(0,218,243,0.15)]">
+<!-- Left Accent -->
+<div class="absolute left-0 top-0 bottom-0 w-[2px] bg-gradient-to-b from-primary-container to-secondary-container"></div>
+<div class="text-primary-fixed mb-2">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">speaker</span>
+</div>
+<h4 class="font-body-fixed text-body-fixed text-primary-fixed font-bold mb-1">Club</h4>
+<p class="font-ui-muted text-ui-muted text-primary-fixed/60">-8 LUFS</p>
+</div>
+<!-- Raw Card -->
+<div class="border border-outline-variant bg-[#0A0A0F] rounded-lg p-4 cursor-pointer hover:border-primary-fixed/50 transition-colors group">
+<div class="text-on-surface-variant group-hover:text-primary-fixed mb-2">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">raw_on</span>
+</div>
+<h4 class="font-body-fixed text-body-fixed text-on-surface mb-1">Raw</h4>
+<p class="font-ui-muted text-ui-muted text-on-surface-variant/60">No Limiter</p>
+</div>
+</div>
+</section>
+<!-- Metadata -->
+<section>
+<h3 class="font-label-caps text-label-caps text-on-surface-variant mb-4 uppercase tracking-wider flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px]">info</span> Metadata &amp; Artwork
+                    </h3>
+<div class="flex gap-4">
+<!-- Art Thumbnail -->
+<div class="w-24 h-24 shrink-0 rounded-md border border-outline-variant bg-[#0A0A0F] overflow-hidden relative group">
+<div class="absolute inset-0 bg-gradient-to-br from-[#1a1a28] to-[#343342] opacity-80 z-0"></div>
+<div class="absolute inset-0 bg-[url('placeholder')] bg-cover bg-center z-10 opacity-70 mix-blend-screen" data-alt="Abstract album art visualization. A dark, moody composition with vibrant neon cyan and magenta light streaks resembling sound waves or glowing circuitry against an obsidian void. Vaporwave aesthetic, highly detailed, sharp contrast."></div>
+<button class="absolute inset-0 z-20 flex flex-col items-center justify-center bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined text-primary-fixed text-[20px] mb-1">auto_awesome</span>
+<span class="font-label-caps text-[9px] text-on-surface">Regenerate</span>
+</button>
+</div>
+<!-- Inputs -->
+<div class="flex-1 flex flex-col gap-3">
+<div class="flex flex-col gap-1">
+<label class="font-ui-muted text-[10px] text-on-surface-variant uppercase tracking-wide">Track Title</label>
+<input class="bg-[#0A0A0F] border border-outline-variant rounded px-3 py-1.5 text-on-surface font-body-main text-[13px] focus:outline-none focus:border-primary-fixed focus:ring-1 focus:ring-primary-fixed/50 transition-all placeholder:text-on-surface-variant/30" type="text" value="Midnight Circuit v3"/>
+</div>
+<div class="flex gap-3">
+<div class="flex flex-col gap-1 flex-1">
+<label class="font-ui-muted text-[10px] text-on-surface-variant uppercase tracking-wide">Artist</label>
+<input class="bg-[#0A0A0F] border border-outline-variant rounded px-3 py-1.5 text-on-surface font-body-main text-[13px] focus:outline-none focus:border-primary-fixed focus:ring-1 focus:ring-primary-fixed/50 transition-all placeholder:text-on-surface-variant/30" placeholder="Pulseforge Producer" type="text"/>
+</div>
+<div class="flex flex-col gap-1 flex-1">
+<label class="font-ui-muted text-[10px] text-on-surface-variant uppercase tracking-wide">Genre</label>
+<input class="bg-[#0A0A0F] border border-outline-variant rounded px-3 py-1.5 text-on-surface font-body-main text-[13px] focus:outline-none focus:border-primary-fixed focus:ring-1 focus:ring-primary-fixed/50 transition-all placeholder:text-on-surface-variant/30" type="text" value="Cyber-Synth"/>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Rights Notice -->
+<section class="bg-primary-container/5 border border-primary-container/20 rounded-lg p-3 flex gap-3 items-start">
+<span class="material-symbols-outlined text-primary-fixed text-[18px] mt-0.5" style="font-variation-settings: 'FILL' 1;">verified</span>
+<div>
+<p class="font-body-fixed text-[12px] text-primary-fixed font-medium">100% original AI-generated audio.</p>
+<p class="font-ui-muted text-[11px] text-on-surface-variant mt-0.5">You retain full ownership of this export for commercial use.</p>
+</div>
+</section>
+</div>
+<!-- Footer -->
+<div class="px-6 py-4 border-t border-outline-variant/50 bg-surface-container-highest flex justify-between items-center">
+<div class="flex gap-2">
+<button class="w-8 h-8 rounded-full bg-surface-variant text-on-surface-variant flex items-center justify-center hover:text-on-surface hover:bg-surface-bright transition-colors border border-outline-variant">
+<span class="material-symbols-outlined text-[16px]">share</span>
+</button>
+<button class="w-8 h-8 rounded-full bg-surface-variant text-on-surface-variant flex items-center justify-center hover:text-on-surface hover:bg-surface-bright transition-colors border border-outline-variant">
+<span class="material-symbols-outlined text-[16px]">link</span>
+</button>
+</div>
+<div class="flex gap-3">
+<button class="px-4 py-2 font-body-fixed text-body-fixed text-on-surface bg-transparent border border-[#2A2A3A] hover:border-outline-variant hover:text-on-surface rounded transition-colors">
+                        Cancel
+                    </button>
+<button class="px-6 py-2 font-headline-md text-[14px] text-on-secondary-container bg-gradient-to-r from-primary-container to-secondary-container hover:opacity-90 rounded font-bold flex items-center gap-2 shadow-[0_0_15px_rgba(0,229,255,0.3)] transition-all">
+<span class="material-symbols-outlined text-[18px]">download</span>
+                        Export track
+                    </button>
+</div>
+</div>
+</div>
+</div>
+</body></html>

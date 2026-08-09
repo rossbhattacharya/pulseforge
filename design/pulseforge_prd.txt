@@ -1,0 +1,20 @@
+# Pulseforge Product Specification
+
+## Overview
+AI music creation studio for bedroom producers, DJs, and content creators. "Ableton meets a nightclub".
+
+## Core Screens
+1. **Home/Dashboard**: Central hub for starting new tracks and resuming work.
+2. **Create (Prompt + Inspiration)**: Two-column composition studio for text-to-music and reference analysis.
+3. **Generating (Progress State)**: Minimal, cinematic ritual shown during AI synthesis.
+4. **Results (Take Picker)**: Fast listening and comparison interface for 4 generated variations.
+5. **Editor (Waveform + Stems)**: Lightweight 5-lane arrangement view for refinement.
+6. **Library**: Scannable grid/list of all projects with bulk actions.
+7. **Export / Share (Modal)**: Finalizing tracks with mastering presets and ownership confirmation.
+
+## Design Rules
+- Dark Mode Only.
+- Waveforms are the hero visual.
+- Cyan = Primary UI/Playback.
+- Magenta = AI/Generation.
+- Monospace fonts for all technical data (BPM, Key).

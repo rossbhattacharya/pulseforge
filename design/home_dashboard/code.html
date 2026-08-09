@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Pulseforge - AI Studio Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&amp;family=JetBrains+Mono:wght@500;700&amp;family=Inter:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "surface-container-high": "#292937",
+                      "tertiary-container": "#d9c8ff",
+                      "surface-tint": "#00daf3",
+                      "on-primary-container": "#00626e",
+                      "tertiary": "#f2e9ff",
+                      "on-error-container": "#ffdad6",
+                      "tertiary-fixed-dim": "#d0bcff",
+                      "inverse-on-surface": "#2f2f3d",
+                      "secondary-container": "#e10083",
+                      "on-secondary-fixed-variant": "#8d0050",
+                      "surface-container": "#1e1e2c",
+                      "surface-container-lowest": "#0d0d1a",
+                      "surface-container-low": "#1a1a28",
+                      "on-tertiary-container": "#6834d1",
+                      "surface-variant": "#343342",
+                      "secondary": "#ffb0cc",
+                      "on-tertiary-fixed": "#23005c",
+                      "secondary-fixed-dim": "#ffb0cc",
+                      "primary-fixed": "#9cf0ff",
+                      "inverse-surface": "#e3e0f3",
+                      "secondary-fixed": "#ffd9e4",
+                      "error": "#ffb4ab",
+                      "on-surface-variant": "#bac9cc",
+                      "tertiary-fixed": "#e9ddff",
+                      "inverse-primary": "#006875",
+                      "on-tertiary": "#3c0091",
+                      "on-secondary": "#640037",
+                      "primary-fixed-dim": "#00daf3",
+                      "on-primary-fixed-variant": "#004f58",
+                      "on-background": "#e3e0f3",
+                      "background": "#0a0a0f",
+                      "on-error": "#690005",
+                      "on-surface": "#e3e0f3",
+                      "on-primary-fixed": "#001f24",
+                      "outline-variant": "#3b494c",
+                      "on-primary": "#00363d",
+                      "primary": "#c3f5ff",
+                      "surface": "#12121f",
+                      "surface-dim": "#12121f",
+                      "on-secondary-fixed": "#3e0020",
+                      "surface-container-highest": "#343342",
+                      "on-secondary-container": "#fffbff",
+                      "error-container": "#93000a",
+                      "primary-container": "#00e5ff",
+                      "on-tertiary-fixed-variant": "#5516be",
+                      "surface-bright": "#383846",
+                      "outline": "#849396"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "stack-xs": "4px",
+                      "stack-md": "16px",
+                      "gutter": "16px",
+                      "sidebar-width": "64px",
+                      "panel-padding": "20px",
+                      "stack-sm": "8px"
+              },
+              "fontFamily": {
+                      "body-fixed": [
+                              "JetBrains Mono"
+                      ],
+                      "headline-lg": [
+                              "Space Grotesk"
+                      ],
+                      "headline-md": [
+                              "Space Grotesk"
+                      ],
+                      "ui-muted": [
+                              "Inter"
+                      ],
+                      "label-caps": [
+                              "JetBrains Mono"
+                      ],
+                      "body-main": [
+                              "Inter"
+                      ]
+              },
+              "fontSize": {
+                      "body-fixed": [
+                              "13px",
+                              {
+                                      "lineHeight": "1.5",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "headline-lg": [
+                              "32px",
+                              {
+                                      "lineHeight": "1.1",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "headline-md": [
+                              "24px",
+                              {
+                                      "lineHeight": "1.2",
+                                      "letterSpacing": "-0.01em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "ui-muted": [
+                              "12px",
+                              {
+                                      "lineHeight": "1.4",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "label-caps": [
+                              "11px",
+                              {
+                                      "lineHeight": "1.2",
+                                      "letterSpacing": "0.05em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "body-main": [
+                              "14px",
+                              {
+                                      "lineHeight": "1.6",
+                                      "fontWeight": "400"
+                              }
+                      ]
+              }
+            },
+          },
+        }
+    </script>
+<style>
+        body { background-color: #0A0A0F; color: #e3e0f3; margin: 0; min-height: 100vh; overflow-x: hidden; }
+        
+        /* Vaporwave-Technical Specifics */
+        .glow-active { box-shadow: inset 0 0 4px rgba(0, 218, 243, 0.15), 0 0 12px rgba(0, 218, 243, 0.1); }
+        .glow-hover:hover { box-shadow: inset 0 0 8px rgba(0, 218, 243, 0.2), 0 0 16px rgba(0, 218, 243, 0.15); border-color: #00daf3; }
+        .gradient-text { background: linear-gradient(90deg, #00daf3 0%, #e10083 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .hero-glow { background: radial-gradient(circle at 50% -20%, rgba(20, 16, 31, 0.8) 0%, rgba(10, 10, 15, 0) 70%); }
+        .input-glow:focus-within { border-color: #00daf3; box-shadow: 0 0 0 2px rgba(0, 218, 243, 0.2); }
+        
+        /* Active Track Gradient Strip */
+        .active-track-strip { position: absolute; left: 0; top: 0; bottom: 0; width: 2px; background: linear-gradient(to bottom, #00daf3, #e10083); }
+        
+        /* Hide scrollbar for a cleaner look but keep functionality */
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #343342; border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: #00daf3; }
+        
+        /* Smooth rendering for material symbols */
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; display: inline-flex; align-items: center; justify-content: center; }
+        .icon-fill { font-variation-settings: 'FILL' 1; }
+    </style>
+</head>
+<body class="flex bg-background font-body-main text-body-main text-on-surface antialiased selection:bg-primary-container selection:text-on-primary-container">
+<!-- TopNavBar -->
+<header class="bg-surface/80 dark:bg-surface/80 backdrop-blur-xl docked full-width top-0 sticky border-b border-outline-variant flat no shadows flex justify-between items-center h-16 px-gutter ml-sidebar-width w-[calc(100%-64px)] z-40 transition-all">
+<!-- Logo Area -->
+<div class="flex items-center gap-stack-md">
+<span class="font-headline-md text-headline-md font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary-container to-secondary-container">Pulseforge</span>
+</div>
+<!-- Search Area (on_left configuration per JSON) -->
+<div class="flex-1 max-w-md ml-gutter hidden md:block">
+<div class="relative group input-glow rounded flex items-center bg-[#0a0a0f] border border-surface-variant transition-all h-9 w-full">
+<span class="material-symbols-outlined text-outline absolute left-3 text-[18px]">search</span>
+<input class="w-full bg-transparent border-none text-body-fixed font-body-fixed text-on-surface placeholder:text-outline focus:ring-0 pl-10 pr-4 h-full text-sm" placeholder="Search projects, tracks, seeds..." type="text"/>
+<span class="font-label-caps text-label-caps text-outline absolute right-3 px-1.5 py-0.5 border border-surface-variant rounded bg-surface">⌘K</span>
+</div>
+</div>
+<!-- Trailing Actions & Profile -->
+<div class="flex items-center gap-stack-md shrink-0 ml-auto">
+<button class="w-10 h-10 flex items-center justify-center rounded-full text-on-surface-variant hover:bg-surface-container-highest dark:hover:bg-surface-container-highest transition-all relative">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+<span class="absolute top-2.5 right-2.5 w-2 h-2 bg-primary-fixed rounded-full shadow-[0_0_8px_rgba(0,218,243,0.8)]"></span>
+</button>
+<button class="w-10 h-10 flex items-center justify-center rounded-full text-on-surface-variant hover:bg-surface-container-highest dark:hover:bg-surface-container-highest transition-all">
+<span class="material-symbols-outlined" data-icon="history">history</span>
+</button>
+<div class="w-px h-6 bg-surface-variant mx-stack-sm"></div>
+<button class="w-9 h-9 rounded-full overflow-hidden border border-surface-variant focus:ring-1 focus:ring-primary-fixed focus:ring-opacity-50 transition-all ml-stack-xs hover:border-outline-variant">
+<img alt="Producer Profile Avatar" class="w-full h-full object-cover" data-alt="A stylized, neon-lit profile avatar for a digital music producer. The avatar features abstract geometric shapes in cyan and magenta against a deep obsidian background, creating a cyberpunk, vaporwave aesthetic. High-contrast lighting and clean 1px border styling." src="https://lh3.googleusercontent.com/aida-public/AB6AXuATfX5NSLkfSpg6F2DyLt3t66cvnB96xaHNNOVN5s3DwfxdvQZAzBXIxrtmb2_LnMWdzjO-C9I7wg3f7dm42Ma1PRAs7Piwt-L_oeCQ3j-Hz-5w9HM6H0ZPpOoIBDw38eSHSfmgE1PXm43qM9CQ_56bKXJZ4RG4q3AoLTVI2X_TkyUsFtIlr9qsvGuG1hDQKGwRXifWYQCKeMrpO_8AEgpgOLzAZdLaFJ4mNhUghoTUCmYyfnN0hIGG"/>
+</button>
+</div>
+</header>
+<!-- SideNavBar -->
+<nav class="bg-surface-container-low dark:bg-surface-container-low w-sidebar-width h-full left-0 top-0 fixed border-r border-outline-variant flat no shadows flex flex-col items-center py-stack-md z-50">
+<!-- Brand Minimal -->
+<div class="mb-8 w-10 h-10 rounded flex items-center justify-center bg-[#0a0a0f] border border-surface-variant relative overflow-hidden group">
+<div class="absolute inset-0 bg-gradient-to-br from-primary-fixed/20 to-secondary-container/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+<span class="font-headline-md text-headline-md font-bold text-primary-fixed dark:text-primary-fixed-dim">P</span>
+</div>
+<!-- Main Nav Tabs -->
+<div class="flex flex-col gap-stack-sm w-full px-2">
+<!-- Home (Active) -->
+<a class="w-full h-12 flex flex-col items-center justify-center rounded-lg text-primary-fixed dark:text-primary-fixed-dim shadow-[0_0_8px_rgba(0,218,243,0.4)] bg-primary-fixed/5 scale-95 duration-100 transition-transform relative group mb-2" href="#">
+<div class="absolute left-0 top-1 bottom-1 w-0.5 bg-primary-fixed rounded-r-full shadow-[0_0_8px_rgba(0,218,243,0.8)]"></div>
+<span class="material-symbols-outlined icon-fill mb-0.5" data-icon="home">home</span>
+<span class="font-label-caps text-label-caps opacity-0 group-hover:opacity-100 absolute left-full ml-4 bg-surface border border-primary-fixed/30 px-2 py-1 rounded text-primary-fixed whitespace-nowrap z-50 transition-opacity">Home</span>
+</a>
+<!-- Library -->
+<a class="w-full h-12 flex flex-col items-center justify-center rounded-lg text-on-surface-variant dark:text-on-surface-variant hover:text-primary-fixed dark:hover:text-primary-fixed-dim transition-colors group mb-2" href="#">
+<span class="material-symbols-outlined text-[20px] mb-0.5" data-icon="library_music">library_music</span>
+<span class="font-label-caps text-label-caps opacity-0 group-hover:opacity-100 absolute left-full ml-4 bg-surface border border-surface-variant px-2 py-1 rounded text-on-surface whitespace-nowrap z-50 transition-opacity">Library</span>
+</a>
+<!-- Studio -->
+<a class="w-full h-12 flex flex-col items-center justify-center rounded-lg text-on-surface-variant dark:text-on-surface-variant hover:text-primary-fixed dark:hover:text-primary-fixed-dim transition-colors group mb-2" href="#">
+<span class="material-symbols-outlined text-[20px] mb-0.5" data-icon="graphic_eq">graphic_eq</span>
+<span class="font-label-caps text-label-caps opacity-0 group-hover:opacity-100 absolute left-full ml-4 bg-surface border border-surface-variant px-2 py-1 rounded text-on-surface whitespace-nowrap z-50 transition-opacity">Studio</span>
+</a>
+<!-- Collaboration -->
+<a class="w-full h-12 flex flex-col items-center justify-center rounded-lg text-on-surface-variant dark:text-on-surface-variant hover:text-primary-fixed dark:hover:text-primary-fixed-dim transition-colors group mb-2" href="#">
+<span class="material-symbols-outlined text-[20px] mb-0.5" data-icon="groups">groups</span>
+<span class="font-label-caps text-label-caps opacity-0 group-hover:opacity-100 absolute left-full ml-4 bg-surface border border-surface-variant px-2 py-1 rounded text-on-surface whitespace-nowrap z-50 transition-opacity">Collaboration</span>
+</a>
+<!-- Settings -->
+<a class="w-full h-12 flex flex-col items-center justify-center rounded-lg text-on-surface-variant dark:text-on-surface-variant hover:text-primary-fixed dark:hover:text-primary-fixed-dim transition-colors group" href="#">
+<span class="material-symbols-outlined text-[20px] mb-0.5" data-icon="settings">settings</span>
+<span class="font-label-caps text-label-caps opacity-0 group-hover:opacity-100 absolute left-full ml-4 bg-surface border border-surface-variant px-2 py-1 rounded text-on-surface whitespace-nowrap z-50 transition-opacity">Settings</span>
+</a>
+</div>
+<div class="mt-auto w-full px-2">
+<!-- Help -->
+<a class="w-full h-12 flex flex-col items-center justify-center rounded-lg text-on-surface-variant dark:text-on-surface-variant hover:text-primary-fixed dark:hover:text-primary-fixed-dim transition-colors group" href="#">
+<span class="material-symbols-outlined text-[20px] mb-0.5" data-icon="help">help</span>
+<span class="font-label-caps text-label-caps opacity-0 group-hover:opacity-100 absolute left-full ml-4 bg-surface border border-surface-variant px-2 py-1 rounded text-on-surface whitespace-nowrap z-50 transition-opacity">Help</span>
+</a>
+</div>
+</nav>
+<!-- Main Content Canvas -->
+<main class="flex-1 ml-sidebar-width min-h-screen relative flex flex-col pt-16">
+<!-- Container for 2-column layout -->
+<div class="flex-1 flex w-full relative h-[calc(100vh-64px)] overflow-hidden">
+<!-- Left Primary Column (Scrollable) -->
+<div class="flex-1 flex flex-col overflow-y-auto pb-24 relative z-10">
+<!-- Hero Section (Prompt Input) -->
+<section class="hero-glow pt-12 pb-10 px-8 flex flex-col items-center border-b border-surface-variant/50 relative">
+<!-- Decorative background grid -->
+<div class="absolute inset-0 bg-[linear-gradient(rgba(52,51,66,0.2)_1px,transparent_1px),linear-gradient(90deg,rgba(52,51,66,0.2)_1px,transparent_1px)] bg-[size:32px_32px] opacity-20 pointer-events-none"></div>
+<div class="w-full max-w-3xl relative z-10">
+<h1 class="font-headline-lg text-headline-lg text-center mb-6 text-on-surface">Generate your next sound.</h1>
+<!-- Main Input Form -->
+<div class="bg-[#0A0A0F] border border-[#2A2A3A] rounded-xl p-1 shadow-lg relative glow-hover transition-all group">
+<!-- Inner glowing border effect -->
+<div class="absolute inset-0 rounded-xl border border-primary-fixed/0 group-hover:border-primary-fixed/30 transition-colors pointer-events-none"></div>
+<div class="flex flex-col sm:flex-row gap-2 relative z-10">
+<div class="flex-1 relative flex items-center">
+<span class="material-symbols-outlined absolute left-4 text-primary-fixed/70 text-[20px]">auto_awesome</span>
+<input class="w-full bg-transparent border-none text-body-main font-body-main text-on-surface placeholder:text-on-surface-variant focus:ring-0 pl-12 pr-4 py-4 resize-none h-14" placeholder="Describe a track... e.g. 'dreamy melodic techno, 122 BPM, rolling bassline, late-night warehouse energy'" type="text"/>
+</div>
+<button class="bg-gradient-to-r from-primary-container to-secondary-container text-white font-headline-md text-[16px] px-8 py-3 rounded-lg flex items-center justify-center gap-2 hover:opacity-90 transition-opacity font-bold shadow-[0_0_15px_rgba(0,229,255,0.3)] h-14 min-w-[140px] m-0.5">
+<span class="material-symbols-outlined text-[18px]">bolt</span>
+                                    Generate
+                                </button>
+</div>
+</div>
+<!-- Genre Chips -->
+<div class="flex flex-wrap items-center justify-center gap-2 mt-6">
+<span class="font-label-caps text-label-caps text-on-surface-variant mr-2 opacity-60">QUICK START:</span>
+<button class="bg-surface border border-surface-variant px-3 py-1.5 rounded-full font-body-fixed text-body-fixed text-tertiary-fixed-dim hover:border-tertiary-fixed-dim hover:bg-tertiary-fixed-dim/10 transition-colors">Techno</button>
+<button class="bg-surface border border-surface-variant px-3 py-1.5 rounded-full font-body-fixed text-body-fixed text-tertiary-fixed-dim hover:border-tertiary-fixed-dim hover:bg-tertiary-fixed-dim/10 transition-colors">House</button>
+<button class="bg-surface border border-surface-variant px-3 py-1.5 rounded-full font-body-fixed text-body-fixed text-tertiary-fixed-dim hover:border-tertiary-fixed-dim hover:bg-tertiary-fixed-dim/10 transition-colors">Drum &amp; Bass</button>
+<button class="bg-surface border border-surface-variant px-3 py-1.5 rounded-full font-body-fixed text-body-fixed text-tertiary-fixed-dim hover:border-tertiary-fixed-dim hover:bg-tertiary-fixed-dim/10 transition-colors">Lo-fi</button>
+<button class="bg-surface border border-surface-variant px-3 py-1.5 rounded-full font-body-fixed text-body-fixed text-tertiary-fixed-dim hover:border-tertiary-fixed-dim hover:bg-tertiary-fixed-dim/10 transition-colors">Trap</button>
+<button class="bg-surface border border-surface-variant px-3 py-1.5 rounded-full font-body-fixed text-body-fixed text-tertiary-fixed-dim hover:border-tertiary-fixed-dim hover:bg-tertiary-fixed-dim/10 transition-colors">Ambient</button>
+<button class="bg-surface border border-surface-variant px-3 py-1.5 rounded-full font-body-fixed text-body-fixed text-tertiary-fixed-dim hover:border-tertiary-fixed-dim hover:bg-tertiary-fixed-dim/10 transition-colors">Afrobeats</button>
+</div>
+</div>
+</section>
+<!-- Continue Working Section -->
+<section class="px-8 pt-10 pb-6 relative">
+<h2 class="font-headline-md text-headline-md text-on-surface mb-6 flex items-center gap-2">
+<span class="w-1.5 h-6 bg-primary-fixed rounded-full shadow-[0_0_8px_rgba(0,218,243,0.6)]"></span>
+                        Continue working
+                    </h2>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<!-- Card 1 (Active) -->
+<div class="bg-surface border border-[#2A2A3A] rounded-lg p-4 relative overflow-hidden group hover:border-primary-fixed/50 transition-colors cursor-pointer glow-active">
+<div class="active-track-strip"></div>
+<div class="flex justify-between items-start mb-4">
+<div>
+<h3 class="font-body-main text-[16px] font-bold text-on-surface mb-1 group-hover:text-primary-fixed transition-colors">Midnight Circuit v3</h3>
+<p class="font-body-fixed text-label-caps text-on-surface-variant opacity-70">Melodic Techno · 124 BPM · A min</p>
+</div>
+<button class="w-8 h-8 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center shadow-[0_0_10px_rgba(0,229,255,0.4)] opacity-100">
+<span class="material-symbols-outlined text-[18px]">pause</span>
+</button>
+</div>
+<!-- Mini Waveform Visualizer -->
+<div class="h-12 w-full flex items-end gap-[2px] opacity-80 pt-2">
+<!-- Generated bars to simulate waveform -->
+<div class="w-[3px] h-[30%] bg-secondary-container rounded-t"></div>
+<div class="w-[3px] h-[50%] bg-secondary-container rounded-t"></div>
+<div class="w-[3px] h-[80%] bg-primary-fixed shadow-[0_0_5px_rgba(0,218,243,0.8)] rounded-t"></div>
+<div class="w-[3px] h-[100%] bg-primary-fixed shadow-[0_0_5px_rgba(0,218,243,0.8)] rounded-t"></div>
+<div class="w-[3px] h-[60%] bg-primary-fixed shadow-[0_0_5px_rgba(0,218,243,0.8)] rounded-t"></div>
+<div class="w-[3px] h-[40%] bg-primary-fixed shadow-[0_0_5px_rgba(0,218,243,0.8)] rounded-t"></div>
+<div class="w-[3px] h-[20%] bg-surface-variant rounded-t"></div>
+<div class="w-[3px] h-[40%] bg-surface-variant rounded-t"></div>
+<div class="w-[3px] h-[70%] bg-surface-variant rounded-t"></div>
+<div class="w-[3px] h-[50%] bg-surface-variant rounded-t"></div>
+<div class="w-[3px] h-[30%] bg-surface-variant rounded-t"></div>
+<div class="w-[3px] h-[60%] bg-surface-variant rounded-t"></div>
+<div class="w-[3px] h-[90%] bg-surface-variant rounded-t"></div>
+<div class="w-[3px] h-[40%] bg-surface-variant rounded-t"></div>
+<div class="w-[3px] h-[20%] bg-surface-variant rounded-t"></div>
+<div class="w-[3px] h-[50%] bg-surface-variant rounded-t"></div>
+<div class="w-[3px] h-[70%] bg-surface-variant rounded-t"></div>
+<div class="w-[3px] h-[30%] bg-surface-variant rounded-t"></div>
+<div class="w-[3px] h-[10%] bg-surface-variant rounded-t"></div>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="bg-[#0A0A0F] border border-[#2A2A3A] rounded-lg p-4 relative overflow-hidden group hover:border-primary-fixed/30 transition-colors cursor-pointer">
+<div class="flex justify-between items-start mb-4">
+<div>
+<h3 class="font-body-main text-[16px] font-bold text-on-surface mb-1 group-hover:text-primary-fixed transition-colors">Neon Drift</h3>
+<p class="font-body-fixed text-label-caps text-on-surface-variant opacity-70">Synthwave · 110 BPM · C min</p>
+</div>
+<button class="w-8 h-8 rounded-full border border-surface-variant text-on-surface flex items-center justify-center group-hover:border-primary-fixed group-hover:text-primary-fixed transition-colors">
+<span class="material-symbols-outlined text-[18px]">play_arrow</span>
+</button>
+</div>
+<!-- Mini Waveform Visualizer -->
+<div class="h-12 w-full flex items-end gap-[2px] opacity-40 pt-2 group-hover:opacity-60 transition-opacity">
+<div class="w-[3px] h-[20%] bg-surface-variant rounded-t"></div>
+<div class="w-[3px] h-[40%] bg-surface-variant rounded-t"></div>
+<div class="w-[3px] h-[60%] bg-surface-variant rounded-t"></div>
+<div class="w-[3px] h-[30%] bg-surface-variant rounded-t"></div>
+<div class="w-[3px] h-[10%] bg-surface-variant rounded-t"></div>
+<div class="w-[3px] h-[40%] bg-surface-variant rounded-t"></div>
+<div class="w-[3px] h-[80%] bg-surface-variant rounded-t"></div>
+<div class="w-[3px] h-[50%] bg-surface-variant rounded-t"></div>
+<div class="w-[3px] h-[90%] bg-surface-variant rounded-t"></div>
+<div class="w-[3px] h-[100%] bg-surface-variant rounded-t"></div>
+<div class="w-[3px] h-[60%] bg-surface-variant rounded-t"></div>
+<div class="w-[3px] h-[40%] bg-surface-variant rounded-t"></div>
+<div class="w-[3px] h-[20%] bg-surface-variant rounded-t"></div>
+<div class="w-[3px] h-[50%] bg-surface-variant rounded-t"></div>
+<div class="w-[3px] h-[70%] bg-surface-variant rounded-t"></div>
+<div class="w-[3px] h-[30%] bg-surface-variant rounded-t"></div>
+<div class="w-[3px] h-[50%] bg-surface-variant rounded-t"></div>
+<div class="w-[3px] h-[20%] bg-surface-variant rounded-t"></div>
+<div class="w-[3px] h-[10%] bg-surface-variant rounded-t"></div>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="bg-[#0A0A0F] border border-[#2A2A3A] rounded-lg p-4 relative overflow-hidden group hover:border-primary-fixed/30 transition-colors cursor-pointer">
+<div class="flex justify-between items-start mb-4">
+<div>
+<h3 class="font-body-main text-[16px] font-bold text-on-surface mb-1 group-hover:text-primary-fixed transition-colors">Urban Pulse Bass</h3>
+<p class="font-body-fixed text-label-caps text-on-surface-variant opacity-70">UK Garage · 135 BPM · F min</p>
+</div>
+<button class="w-8 h-8 rounded-full border border-surface-variant text-on-surface flex items-center justify-center group-hover:border-primary-fixed group-hover:text-primary-fixed transition-colors">
+<span class="material-symbols-outlined text-[18px]">play_arrow</span>
+</button>
+</div>
+<!-- Mini Waveform Visualizer -->
+<div class="h-12 w-full flex items-end gap-[2px] opacity-40 pt-2 group-hover:opacity-60 transition-opacity">
+<div class="w-[3px] h-[10%] bg-surface-variant rounded-t"></div>
+<div class="w-[3px] h-[50%] bg-surface-variant rounded-t"></div>
+<div class="w-[3px] h-[90%] bg-surface-variant rounded-t"></div>
+<div class="w-[3px] h-[40%] bg-surface-variant rounded-t"></div>
+<div class="w-[3px] h-[20%] bg-surface-variant rounded-t"></div>
+<div class="w-[3px] h-[30%] bg-surface-variant rounded-t"></div>
+<div class="w-[3px] h-[70%] bg-surface-variant rounded-t"></div>
+<div class="w-[3px] h-[100%] bg-surface-variant rounded-t"></div>
+<div class="w-[3px] h-[80%] bg-surface-variant rounded-t"></div>
+<div class="w-[3px] h-[40%] bg-surface-variant rounded-t"></div>
+<div class="w-[3px] h-[20%] bg-surface-variant rounded-t"></div>
+<div class="w-[3px] h-[60%] bg-surface-variant rounded-t"></div>
+<div class="w-[3px] h-[90%] bg-surface-variant rounded-t"></div>
+<div class="w-[3px] h-[50%] bg-surface-variant rounded-t"></div>
+<div class="w-[3px] h-[30%] bg-surface-variant rounded-t"></div>
+<div class="w-[3px] h-[70%] bg-surface-variant rounded-t"></div>
+<div class="w-[3px] h-[100%] bg-surface-variant rounded-t"></div>
+<div class="w-[3px] h-[60%] bg-surface-variant rounded-t"></div>
+<div class="w-[3px] h-[20%] bg-surface-variant rounded-t"></div>
+</div>
+</div>
+</div>
+</section>
+<!-- Recent Generations Section -->
+<section class="px-8 py-6">
+<div class="flex justify-between items-center mb-6">
+<h2 class="font-headline-md text-headline-md text-on-surface">Recent generations</h2>
+<a class="font-body-fixed text-body-fixed text-primary-fixed hover:text-primary-container flex items-center gap-1 transition-colors" href="#">
+                            View all <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</a>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<!-- List Item 1 -->
+<div class="bg-[#0A0A0F] border border-[#2A2A3A] rounded-lg p-3 flex items-center gap-4 hover:border-surface-variant hover:bg-surface/50 transition-colors group">
+<!-- Play Thumb -->
+<div class="w-12 h-12 rounded bg-surface border border-surface-variant relative flex items-center justify-center shrink-0 overflow-hidden group-hover:border-primary-fixed/50 transition-colors">
+<div class="absolute inset-0 bg-gradient-to-tr from-[#131320] to-[#292937] opacity-50"></div>
+<span class="material-symbols-outlined text-primary-fixed z-10 text-[24px]">play_arrow</span>
+</div>
+<!-- Info -->
+<div class="flex-1 min-w-0">
+<h4 class="font-body-main text-[14px] font-medium text-on-surface truncate">Ethereal Chords_01</h4>
+<div class="flex items-center gap-2 mt-1">
+<span class="font-body-fixed text-[11px] text-tertiary-fixed-dim bg-tertiary-fixed-dim/10 px-1.5 py-0.5 rounded border border-tertiary-fixed-dim/20">Ambient</span>
+<span class="font-body-fixed text-[11px] text-on-surface-variant">0:45</span>
+</div>
+</div>
+<!-- Waveform snippet -->
+<div class="w-24 h-6 opacity-30 flex items-center gap-[1px]">
+<div class="w-[2px] h-[30%] bg-on-surface-variant"></div>
+<div class="w-[2px] h-[50%] bg-on-surface-variant"></div>
+<div class="w-[2px] h-[80%] bg-on-surface-variant"></div>
+<div class="w-[2px] h-[100%] bg-on-surface-variant"></div>
+<div class="w-[2px] h-[60%] bg-on-surface-variant"></div>
+<div class="w-[2px] h-[40%] bg-on-surface-variant"></div>
+<div class="w-[2px] h-[70%] bg-on-surface-variant"></div>
+<div class="w-[2px] h-[90%] bg-on-surface-variant"></div>
+<div class="w-[2px] h-[50%] bg-on-surface-variant"></div>
+<div class="w-[2px] h-[30%] bg-on-surface-variant"></div>
+</div>
+<!-- Actions -->
+<div class="flex items-center gap-2 text-on-surface-variant opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="w-8 h-8 rounded hover:bg-surface flex items-center justify-center hover:text-secondary-fixed-dim transition-colors">
+<span class="material-symbols-outlined text-[18px]">favorite</span>
+</button>
+<button class="w-8 h-8 rounded hover:bg-surface flex items-center justify-center transition-colors">
+<span class="material-symbols-outlined text-[18px]">more_horiz</span>
+</button>
+</div>
+</div>
+<!-- List Item 2 -->
+<div class="bg-[#0A0A0F] border border-[#2A2A3A] rounded-lg p-3 flex items-center gap-4 hover:border-surface-variant hover:bg-surface/50 transition-colors group">
+<div class="w-12 h-12 rounded bg-surface border border-surface-variant relative flex items-center justify-center shrink-0 overflow-hidden group-hover:border-primary-fixed/50 transition-colors">
+<span class="material-symbols-outlined text-on-surface z-10 text-[24px]">play_arrow</span>
+</div>
+<div class="flex-1 min-w-0">
+<h4 class="font-body-main text-[14px] font-medium text-on-surface truncate">Dark Room Bassline</h4>
+<div class="flex items-center gap-2 mt-1">
+<span class="font-body-fixed text-[11px] text-tertiary-fixed-dim bg-tertiary-fixed-dim/10 px-1.5 py-0.5 rounded border border-tertiary-fixed-dim/20">Techno</span>
+<span class="font-body-fixed text-[11px] text-on-surface-variant">1:12</span>
+</div>
+</div>
+<div class="w-24 h-6 opacity-30 flex items-center gap-[1px]">
+<!-- dense waveform pattern -->
+<div class="w-[2px] h-[40%] bg-on-surface-variant"></div><div class="w-[2px] h-[80%] bg-on-surface-variant"></div><div class="w-[2px] h-[100%] bg-on-surface-variant"></div><div class="w-[2px] h-[90%] bg-on-surface-variant"></div><div class="w-[2px] h-[60%] bg-on-surface-variant"></div><div class="w-[2px] h-[40%] bg-on-surface-variant"></div><div class="w-[2px] h-[80%] bg-on-surface-variant"></div><div class="w-[2px] h-[100%] bg-on-surface-variant"></div><div class="w-[2px] h-[70%] bg-on-surface-variant"></div><div class="w-[2px] h-[30%] bg-on-surface-variant"></div>
+</div>
+<div class="flex items-center gap-2 text-on-surface-variant opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="w-8 h-8 rounded hover:bg-surface flex items-center justify-center hover:text-secondary-fixed-dim transition-colors"><span class="material-symbols-outlined text-[18px]">favorite</span></button>
+<button class="w-8 h-8 rounded hover:bg-surface flex items-center justify-center transition-colors"><span class="material-symbols-outlined text-[18px]">more_horiz</span></button>
+</div>
+</div>
+<!-- List Item 3 -->
+<div class="bg-[#0A0A0F] border border-[#2A2A3A] rounded-lg p-3 flex items-center gap-4 hover:border-surface-variant hover:bg-surface/50 transition-colors group">
+<div class="w-12 h-12 rounded bg-surface border border-surface-variant relative flex items-center justify-center shrink-0 overflow-hidden group-hover:border-primary-fixed/50 transition-colors">
+<span class="material-symbols-outlined text-on-surface z-10 text-[24px]">play_arrow</span>
+</div>
+<div class="flex-1 min-w-0">
+<h4 class="font-body-main text-[14px] font-medium text-on-surface truncate">LoFi_Beat_Sketch_v2</h4>
+<div class="flex items-center gap-2 mt-1">
+<span class="font-body-fixed text-[11px] text-tertiary-fixed-dim bg-tertiary-fixed-dim/10 px-1.5 py-0.5 rounded border border-tertiary-fixed-dim/20">Lo-fi</span>
+<span class="font-body-fixed text-[11px] text-on-surface-variant">2:04</span>
+</div>
+</div>
+<div class="w-24 h-6 opacity-30 flex items-center gap-[1px]">
+<!-- loose waveform pattern -->
+<div class="w-[2px] h-[20%] bg-on-surface-variant"></div><div class="w-[2px] h-[30%] bg-on-surface-variant"></div><div class="w-[2px] h-[60%] bg-on-surface-variant"></div><div class="w-[2px] h-[40%] bg-on-surface-variant"></div><div class="w-[2px] h-[20%] bg-on-surface-variant"></div><div class="w-[2px] h-[20%] bg-on-surface-variant"></div><div class="w-[2px] h-[50%] bg-on-surface-variant"></div><div class="w-[2px] h-[80%] bg-on-surface-variant"></div><div class="w-[2px] h-[40%] bg-on-surface-variant"></div><div class="w-[2px] h-[20%] bg-on-surface-variant"></div>
+</div>
+<div class="flex items-center gap-2 text-on-surface-variant opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="w-8 h-8 rounded hover:bg-surface flex items-center justify-center text-secondary-fixed-dim transition-colors"><span class="material-symbols-outlined text-[18px] icon-fill">favorite</span></button>
+<button class="w-8 h-8 rounded hover:bg-surface flex items-center justify-center transition-colors"><span class="material-symbols-outlined text-[18px]">more_horiz</span></button>
+</div>
+</div>
+<!-- List Item 4 -->
+<div class="bg-[#0A0A0F] border border-[#2A2A3A] rounded-lg p-3 flex items-center gap-4 hover:border-surface-variant hover:bg-surface/50 transition-colors group">
+<div class="w-12 h-12 rounded bg-surface border border-surface-variant relative flex items-center justify-center shrink-0 overflow-hidden group-hover:border-primary-fixed/50 transition-colors">
+<span class="material-symbols-outlined text-on-surface z-10 text-[24px]">play_arrow</span>
+</div>
+<div class="flex-1 min-w-0">
+<h4 class="font-body-main text-[14px] font-medium text-on-surface truncate">Glitch Vox Chop</h4>
+<div class="flex items-center gap-2 mt-1">
+<span class="font-body-fixed text-[11px] text-tertiary-fixed-dim bg-tertiary-fixed-dim/10 px-1.5 py-0.5 rounded border border-tertiary-fixed-dim/20">FX</span>
+<span class="font-body-fixed text-[11px] text-on-surface-variant">0:12</span>
+</div>
+</div>
+<div class="w-24 h-6 opacity-30 flex items-center gap-[1px]">
+<!-- glitchy waveform pattern -->
+<div class="w-[2px] h-[90%] bg-on-surface-variant"></div><div class="w-[2px] h-[10%] bg-on-surface-variant"></div><div class="w-[2px] h-[100%] bg-on-surface-variant"></div><div class="w-[2px] h-[20%] bg-on-surface-variant"></div><div class="w-[2px] h-[80%] bg-on-surface-variant"></div><div class="w-[2px] h-[10%] bg-on-surface-variant"></div><div class="w-[2px] h-[100%] bg-on-surface-variant"></div><div class="w-[2px] h-[30%] bg-on-surface-variant"></div><div class="w-[2px] h-[70%] bg-on-surface-variant"></div><div class="w-[2px] h-[20%] bg-on-surface-variant"></div>
+</div>
+<div class="flex items-center gap-2 text-on-surface-variant opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="w-8 h-8 rounded hover:bg-surface flex items-center justify-center hover:text-secondary-fixed-dim transition-colors"><span class="material-symbols-outlined text-[18px]">favorite</span></button>
+<button class="w-8 h-8 rounded hover:bg-surface flex items-center justify-center transition-colors"><span class="material-symbols-outlined text-[18px]">more_horiz</span></button>
+</div>
+</div>
+</div>
+</section>
+</div> <!-- End Left Column -->
+<!-- Right Rail (Inspiration Bank) -->
+<div class="w-[320px] bg-surface-container-lowest border-l border-surface-variant hidden lg:flex flex-col flex-shrink-0 relative z-20">
+<!-- Header -->
+<div class="p-6 border-b border-surface-variant">
+<h3 class="font-headline-md text-[18px] text-on-surface flex items-center justify-between">
+                        Inspiration Bank
+                        <button class="text-on-surface-variant hover:text-primary-fixed transition-colors">
+<span class="material-symbols-outlined text-[20px]">add</span>
+</button>
+</h3>
+<p class="font-body-main text-ui-muted text-on-surface-variant mt-1">Saved seeds and reference tracks</p>
+</div>
+<!-- Scrollable List -->
+<div class="flex-1 overflow-y-auto p-4 space-y-4">
+<!-- Bank Item 1 (Generative style) -->
+<div class="bg-surface border border-secondary-container/30 rounded-lg p-4 relative group">
+<!-- AI border treatment -->
+<div class="absolute inset-0 bg-secondary-container/5 rounded-lg pointer-events-none"></div>
+<div class="flex justify-between items-start mb-2 relative z-10">
+<h4 class="font-body-main text-[14px] font-bold text-on-surface">Warehouse 3AM</h4>
+<span class="material-symbols-outlined text-secondary-container text-[16px]">psychiatry</span>
+</div>
+<div class="flex flex-wrap gap-1.5 mb-3 relative z-10">
+<span class="font-body-fixed text-[10px] text-tertiary-fixed-dim bg-surface-variant px-1.5 py-0.5 rounded">130 BPM</span>
+<span class="font-body-fixed text-[10px] text-tertiary-fixed-dim bg-surface-variant px-1.5 py-0.5 rounded">D min</span>
+<span class="font-body-fixed text-[10px] text-tertiary-fixed-dim bg-surface-variant px-1.5 py-0.5 rounded">High Energy</span>
+<span class="font-body-fixed text-[10px] text-tertiary-fixed-dim bg-surface-variant px-1.5 py-0.5 rounded border border-secondary-container/50 text-secondary-container">#acid</span>
+</div>
+<button class="w-full bg-transparent border border-[#2A2A3A] text-primary-fixed font-body-fixed text-[12px] py-1.5 rounded hover:border-primary-fixed hover:shadow-[0_0_8px_rgba(0,218,243,0.2)] transition-all relative z-10">
+                            Use as seed
+                        </button>
+</div>
+<!-- Bank Item 2 -->
+<div class="bg-surface border border-[#2A2A3A] rounded-lg p-4 relative group">
+<div class="flex justify-between items-start mb-2">
+<h4 class="font-body-main text-[14px] font-bold text-on-surface truncate">Analog Brass Pad</h4>
+<span class="material-symbols-outlined text-on-surface-variant text-[16px]">bookmark</span>
+</div>
+<div class="flex flex-wrap gap-1.5 mb-3">
+<span class="font-body-fixed text-[10px] text-tertiary-fixed-dim bg-surface-variant px-1.5 py-0.5 rounded">85 BPM</span>
+<span class="font-body-fixed text-[10px] text-tertiary-fixed-dim bg-surface-variant px-1.5 py-0.5 rounded">G maj</span>
+<span class="font-body-fixed text-[10px] text-tertiary-fixed-dim bg-surface-variant px-1.5 py-0.5 rounded">Lush</span>
+</div>
+<button class="w-full bg-transparent border border-[#2A2A3A] text-primary-fixed font-body-fixed text-[12px] py-1.5 rounded hover:border-primary-fixed hover:shadow-[0_0_8px_rgba(0,218,243,0.2)] transition-all">
+                            Use as seed
+                        </button>
+</div>
+<!-- Bank Item 3 -->
+<div class="bg-surface border border-[#2A2A3A] rounded-lg p-4 relative group">
+<div class="flex justify-between items-start mb-2">
+<h4 class="font-body-main text-[14px] font-bold text-on-surface truncate">Distorted 808s</h4>
+<span class="material-symbols-outlined text-on-surface-variant text-[16px]">bookmark</span>
+</div>
+<div class="flex flex-wrap gap-1.5 mb-3">
+<span class="font-body-fixed text-[10px] text-tertiary-fixed-dim bg-surface-variant px-1.5 py-0.5 rounded">140 BPM</span>
+<span class="font-body-fixed text-[10px] text-tertiary-fixed-dim bg-surface-variant px-1.5 py-0.5 rounded">C min</span>
+<span class="font-body-fixed text-[10px] text-tertiary-fixed-dim bg-surface-variant px-1.5 py-0.5 rounded">Aggressive</span>
+</div>
+<button class="w-full bg-transparent border border-[#2A2A3A] text-primary-fixed font-body-fixed text-[12px] py-1.5 rounded hover:border-primary-fixed hover:shadow-[0_0_8px_rgba(0,218,243,0.2)] transition-all">
+                            Use as seed
+                        </button>
+</div>
+</div>
+</div>
+</div>
+</main>
+</body></html>

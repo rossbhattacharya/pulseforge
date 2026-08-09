@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Pulseforge - Library</title>
+<!-- Material Symbols Outlined -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=JetBrains+Mono:wght@100..900&family=Space+Grotesk:wght@100..900&display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS with specific plugins -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Theme Configuration -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-container-high": "#292937",
+                    "tertiary-container": "#d9c8ff",
+                    "surface-tint": "#00daf3",
+                    "on-primary-container": "#00626e",
+                    "tertiary": "#f2e9ff",
+                    "on-error-container": "#ffdad6",
+                    "tertiary-fixed-dim": "#d0bcff",
+                    "inverse-on-surface": "#2f2f3d",
+                    "secondary-container": "#e10083",
+                    "on-secondary-fixed-variant": "#8d0050",
+                    "surface-container": "#1e1e2c",
+                    "surface-container-lowest": "#0d0d1a",
+                    "surface-container-low": "#1a1a28",
+                    "on-tertiary-container": "#6834d1",
+                    "surface-variant": "#343342",
+                    "secondary": "#ffb0cc",
+                    "on-tertiary-fixed": "#23005c",
+                    "secondary-fixed-dim": "#ffb0cc",
+                    "primary-fixed": "#9cf0ff",
+                    "inverse-surface": "#e3e0f3",
+                    "secondary-fixed": "#ffd9e4",
+                    "error": "#ffb4ab",
+                    "on-surface-variant": "#bac9cc",
+                    "tertiary-fixed": "#e9ddff",
+                    "inverse-primary": "#006875",
+                    "on-tertiary": "#3c0091",
+                    "on-secondary": "#640037",
+                    "primary-fixed-dim": "#00daf3",
+                    "on-primary-fixed-variant": "#004f58",
+                    "on-background": "#e3e0f3",
+                    "background": "#12121f",
+                    "on-error": "#690005",
+                    "on-surface": "#e3e0f3",
+                    "on-primary-fixed": "#001f24",
+                    "outline-variant": "#3b494c",
+                    "on-primary": "#00363d",
+                    "primary": "#c3f5ff",
+                    "surface": "#12121f",
+                    "surface-dim": "#12121f",
+                    "on-secondary-fixed": "#3e0020",
+                    "surface-container-highest": "#343342",
+                    "on-secondary-container": "#fffbff",
+                    "error-container": "#93000a",
+                    "primary-container": "#00e5ff",
+                    "on-tertiary-fixed-variant": "#5516be",
+                    "surface-bright": "#383846",
+                    "outline": "#849396"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "stack-xs": "4px",
+                    "stack-md": "16px",
+                    "gutter": "16px",
+                    "sidebar-width": "64px",
+                    "panel-padding": "20px",
+                    "stack-sm": "8px"
+            },
+            "fontFamily": {
+                    "body-fixed": ["JetBrains Mono"],
+                    "headline-lg": ["Space Grotesk"],
+                    "headline-md": ["Space Grotesk"],
+                    "ui-muted": ["Inter"],
+                    "label-caps": ["JetBrains Mono"],
+                    "body-main": ["Inter"]
+            },
+            "fontSize": {
+                    "body-fixed": ["13px", {"lineHeight": "1.5", "fontWeight": "500"}],
+                    "headline-lg": ["32px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "headline-md": ["24px", {"lineHeight": "1.2", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "ui-muted": ["12px", {"lineHeight": "1.4", "fontWeight": "400"}],
+                    "label-caps": ["11px", {"lineHeight": "1.2", "letterSpacing": "0.05em", "fontWeight": "700"}],
+                    "body-main": ["14px", {"lineHeight": "1.6", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        /* Custom scrollbar for pro-studio feel */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #12121f; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #3b494c; 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #00daf3; 
+        }
+        
+        /* Pro-studio Range Slider */
+        input[type=range] {
+            -webkit-appearance: none;
+            width: 100%;
+            background: transparent;
+        }
+        input[type=range]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            height: 16px;
+            width: 4px;
+            background: #00daf3;
+            cursor: pointer;
+            margin-top: -6px;
+            box-shadow: 0 0 8px rgba(0, 218, 243, 0.6);
+        }
+        input[type=range]::-webkit-slider-runnable-track {
+            width: 100%;
+            height: 4px;
+            cursor: pointer;
+            background: #1a1a28;
+            border-radius: 2px;
+            border: 1px solid #3b494c;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body-main text-body-main min-h-screen overflow-hidden flex selection:bg-primary-container/30 selection:text-primary-fixed">
+<!-- JSON: SideNavBar -->
+<aside class="w-sidebar-width h-full left-0 top-0 fixed bg-surface-container-low dark:bg-surface-container-low border-r border-outline-variant flex flex-col items-center py-stack-md z-50">
+<!-- Brand/Avatar area -->
+<div class="mb-8 flex flex-col items-center group cursor-pointer">
+<div class="w-10 h-10 rounded-lg bg-surface-container-lowest border border-outline-variant flex items-center justify-center overflow-hidden mb-2 group-hover:border-primary-fixed transition-colors">
+<span class="material-symbols-outlined font-headline-md text-headline-md font-bold text-primary-fixed dark:text-primary-fixed-dim" style="font-variation-settings: 'FILL' 1;">
+                    graphic_eq
+                </span>
+</div>
+</div>
+<!-- Navigation Tabs -->
+<nav class="flex flex-col gap-6 w-full items-center flex-1">
+<!-- Home (Inactive) -->
+<a class="flex flex-col items-center gap-1 group text-on-surface-variant dark:text-on-surface-variant hover:text-primary-fixed dark:hover:text-primary-fixed-dim transition-colors" href="#">
+<span class="material-symbols-outlined text-2xl group-active:scale-95 duration-100 transition-transform">home</span>
+</a>
+<!-- Library (Active) -->
+<a class="flex flex-col items-center gap-1 group text-primary-fixed dark:text-primary-fixed-dim shadow-[0_0_8px_rgba(0,218,243,0.4)] rounded-full p-2 bg-primary-fixed/10" href="#">
+<span class="material-symbols-outlined text-2xl group-active:scale-95 duration-100 transition-transform" style="font-variation-settings: 'FILL' 1;">library_music</span>
+</a>
+<!-- Studio (Inactive) -->
+<a class="flex flex-col items-center gap-1 group text-on-surface-variant dark:text-on-surface-variant hover:text-primary-fixed dark:hover:text-primary-fixed-dim transition-colors" href="#">
+<span class="material-symbols-outlined text-2xl group-active:scale-95 duration-100 transition-transform">graphic_eq</span>
+</a>
+<!-- Collaboration (Inactive) -->
+<a class="flex flex-col items-center gap-1 group text-on-surface-variant dark:text-on-surface-variant hover:text-primary-fixed dark:hover:text-primary-fixed-dim transition-colors" href="#">
+<span class="material-symbols-outlined text-2xl group-active:scale-95 duration-100 transition-transform">groups</span>
+</a>
+<!-- Settings (Inactive) -->
+<a class="flex flex-col items-center gap-1 group text-on-surface-variant dark:text-on-surface-variant hover:text-primary-fixed dark:hover:text-primary-fixed-dim transition-colors" href="#">
+<span class="material-symbols-outlined text-2xl group-active:scale-95 duration-100 transition-transform">settings</span>
+</a>
+</nav>
+<!-- Footer Tabs -->
+<nav class="flex flex-col gap-6 w-full items-center mt-auto">
+<!-- Help (Inactive) -->
+<a class="flex flex-col items-center gap-1 group text-on-surface-variant dark:text-on-surface-variant hover:text-primary-fixed dark:hover:text-primary-fixed-dim transition-colors" href="#">
+<span class="material-symbols-outlined text-2xl group-active:scale-95 duration-100 transition-transform">help</span>
+</a>
+</nav>
+</aside>
+<!-- Main Application Canvas -->
+<div class="ml-sidebar-width w-[calc(100%-64px)] flex flex-col h-screen">
+<!-- JSON: TopNavBar -->
+<header class="flex justify-between items-center h-16 px-gutter w-full z-40 bg-surface/80 dark:bg-surface/80 backdrop-blur-xl border-b border-outline-variant sticky top-0 shrink-0">
+<!-- Brand & Search (Left) -->
+<div class="flex items-center gap-8">
+<div class="font-headline-md text-headline-md font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary-container to-secondary-container tracking-tight">
+                    Pulseforge
+                </div>
+<!-- Search Bar -->
+<div class="relative group">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-[18px]">search</span>
+<input class="bg-surface-container-lowest border border-outline-variant text-on-surface font-body-main text-body-main rounded-md py-1.5 pl-10 pr-4 w-64 focus:outline-none focus:ring-1 focus:ring-primary-fixed focus:ring-opacity-50 focus:border-primary-fixed transition-all placeholder:text-on-surface-variant/50" placeholder="Search tracks, plugins..." type="text"/>
+</div>
+</div>
+<!-- Actions & Profile (Right) -->
+<div class="flex items-center gap-4">
+<button class="text-on-surface-variant hover:text-primary-fixed transition-colors flex items-center justify-center w-8 h-8 rounded hover:bg-surface-container-highest">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="text-on-surface-variant hover:text-primary-fixed transition-colors flex items-center justify-center w-8 h-8 rounded hover:bg-surface-container-highest">
+<span class="material-symbols-outlined">history</span>
+</button>
+<div class="w-8 h-8 rounded-full border border-outline-variant overflow-hidden ml-2 cursor-pointer hover:border-primary-fixed transition-colors">
+<img class="w-full h-full object-cover" data-alt="A detailed headshot portrait of an electronic music producer lit by cyan and magenta studio monitor glows in a dark vaporwave aesthetic studio setting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDmBI7R94qbq29KF8sxd7Dgsa7aXAmwwg9_wSwYF7d4-g9DEWax3fEVfyslkhuQT2TcG_qxLhQJizvNCNHqR8-mnR-r0QtE5hv4gnOZcssBn1mHEHPEnlzNOVrAw0t03a_MNvHgZjczDM2fJS0PpgWgrDzTLmC5pyaMJRQvIOi1kfHMNbu8Ih6kxxUnvD8PI7oE_OZ2LtDd6ZrhvMp_FrYuk-WwnduPG3-wxGzNjaPnPcyDuxguhlXI"/>
+</div>
+</div>
+</header>
+<!-- Content Area: Sidebar + Main Grid -->
+<div class="flex flex-1 overflow-hidden">
+<!-- Left Filter Sidebar -->
+<aside class="w-64 bg-surface-container-lowest border-r border-outline-variant overflow-y-auto flex-shrink-0">
+<div class="p-panel-padding flex flex-col gap-8">
+<!-- Filter Section: Genre -->
+<div>
+<h3 class="font-label-caps text-label-caps text-on-surface-variant mb-4 tracking-widest uppercase">Genre</h3>
+<div class="flex flex-col gap-2">
+<label class="flex items-center gap-3 cursor-pointer group">
+<input class="form-checkbox bg-surface-container border-outline-variant text-primary-fixed rounded-sm focus:ring-1 focus:ring-primary-fixed focus:ring-opacity-50 w-4 h-4 checked:bg-primary-fixed checked:border-primary-fixed transition-colors" type="checkbox"/>
+<span class="font-ui-muted text-ui-muted text-on-surface group-hover:text-primary-fixed transition-colors">Synthwave</span>
+</label>
+<label class="flex items-center gap-3 cursor-pointer group">
+<input checked="" class="form-checkbox bg-surface-container border-outline-variant text-primary-fixed rounded-sm focus:ring-1 focus:ring-primary-fixed focus:ring-opacity-50 w-4 h-4 checked:bg-primary-fixed checked:border-primary-fixed transition-colors" type="checkbox"/>
+<span class="font-ui-muted text-ui-muted text-on-surface group-hover:text-primary-fixed transition-colors">Cyberpunk</span>
+</label>
+<label class="flex items-center gap-3 cursor-pointer group">
+<input checked="" class="form-checkbox bg-surface-container border-outline-variant text-primary-fixed rounded-sm focus:ring-1 focus:ring-primary-fixed focus:ring-opacity-50 w-4 h-4 checked:bg-primary-fixed checked:border-primary-fixed transition-colors" type="checkbox"/>
+<span class="font-ui-muted text-ui-muted text-on-surface group-hover:text-primary-fixed transition-colors">Industrial</span>
+</label>
+<label class="flex items-center gap-3 cursor-pointer group">
+<input class="form-checkbox bg-surface-container border-outline-variant text-primary-fixed rounded-sm focus:ring-1 focus:ring-primary-fixed focus:ring-opacity-50 w-4 h-4 checked:bg-primary-fixed checked:border-primary-fixed transition-colors" type="checkbox"/>
+<span class="font-ui-muted text-ui-muted text-on-surface group-hover:text-primary-fixed transition-colors">Ambient</span>
+</label>
+</div>
+</div>
+<!-- Filter Section: BPM Range -->
+<div>
+<div class="flex justify-between items-center mb-4">
+<h3 class="font-label-caps text-label-caps text-on-surface-variant tracking-widest uppercase">BPM Range</h3>
+<span class="font-body-fixed text-body-fixed text-primary-fixed">90 - 140</span>
+</div>
+<input class="w-full" max="200" min="60" type="range" value="120"/>
+</div>
+<!-- Filter Section: Key -->
+<div>
+<h3 class="font-label-caps text-label-caps text-on-surface-variant mb-4 tracking-widest uppercase">Key Signature</h3>
+<select class="w-full bg-surface-container border border-outline-variant text-on-surface font-body-main text-body-main rounded px-3 py-2 focus:outline-none focus:ring-1 focus:ring-primary-fixed focus:border-primary-fixed appearance-none">
+<option value="">Any Key</option>
+<option value="c-minor">C Minor</option>
+<option value="g-minor">G Minor</option>
+<option value="a-minor">A Minor</option>
+</select>
+</div>
+<!-- Filter Section: Status -->
+<div>
+<h3 class="font-label-caps text-label-caps text-on-surface-variant mb-4 tracking-widest uppercase">Status</h3>
+<div class="flex flex-wrap gap-2">
+<button class="px-3 py-1 rounded-full border border-primary-fixed bg-primary-fixed/10 text-primary-fixed font-ui-muted text-ui-muted hover:bg-primary-fixed/20 transition-colors">All</button>
+<button class="px-3 py-1 rounded-full border border-outline-variant text-on-surface-variant font-ui-muted text-ui-muted hover:border-primary-fixed hover:text-primary-fixed transition-colors">Drafts</button>
+<button class="px-3 py-1 rounded-full border border-outline-variant text-on-surface-variant font-ui-muted text-ui-muted hover:border-primary-fixed hover:text-primary-fixed transition-colors">Mastered</button>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Grid Canvas -->
+<main class="flex-1 overflow-y-auto bg-background relative p-panel-padding">
+<!-- Library Header & Controls -->
+<div class="flex justify-between items-end mb-6">
+<div>
+<h1 class="font-headline-lg text-headline-lg text-on-surface mb-2">Library</h1>
+<div class="flex gap-2">
+<span class="px-2 py-1 rounded bg-surface-variant text-on-surface-variant font-ui-muted text-ui-muted border border-outline-variant flex items-center gap-1">
+                                Cyberpunk <span class="material-symbols-outlined text-[14px] cursor-pointer hover:text-error transition-colors">close</span>
+</span>
+<span class="px-2 py-1 rounded bg-surface-variant text-on-surface-variant font-ui-muted text-ui-muted border border-outline-variant flex items-center gap-1">
+                                Industrial <span class="material-symbols-outlined text-[14px] cursor-pointer hover:text-error transition-colors">close</span>
+</span>
+</div>
+</div>
+<div class="flex items-center gap-2 bg-surface-container-low p-1 rounded-lg border border-outline-variant">
+<button class="p-1 rounded bg-surface-container-high text-primary-fixed shadow-sm">
+<span class="material-symbols-outlined text-[20px]">grid_view</span>
+</button>
+<button class="p-1 rounded text-on-surface-variant hover:text-on-surface transition-colors">
+<span class="material-symbols-outlined text-[20px]">view_list</span>
+</button>
+</div>
+</div>
+<!-- 4 Column Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-stack-md pb-32">
+<!-- Card 1 (Selected/Active State) -->
+<div class="group relative bg-surface-container rounded-lg border border-primary-fixed/50 overflow-hidden flex flex-col shadow-[0_0_12px_rgba(0,218,243,0.15)] transition-all">
+<!-- Active Indicator Strip -->
+<div class="absolute left-0 top-0 bottom-0 w-[2px] bg-gradient-to-b from-primary-container to-secondary-container z-10"></div>
+<!-- Thumbnail -->
+<div class="h-32 w-full relative bg-surface-container-lowest border-b border-outline-variant overflow-hidden">
+<img class="w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-500" data-alt="A highly detailed, neon-infused digital audio waveform display glowing in cyan and magenta on a deep obsidian black background. The visual represents a futuristic music studio interface, utilizing a pro-studio minimal aesthetic with sharp lines, high contrast, and a vaporwave technical mood." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCJ-EtbGM8tgltNDClsca5sw4yyi6liRHMoXmGBn97GywURKoPPss14-lQ3Jel7iJJo44VRwg1GapkhhYDJXBWJdCl1ZBz1hflNOVei2ZZCllaW-WOZ8DIqmd50Rxhr9zJ4WWfgjYBv5ENTEnRHJkl59hQhYpnRRNhRUFJZuxGSNzqoigW3H0yNjlgwpphVv6kiQ_HBxMaPWjNRGldUrKpdcf5uC_3CQ9ORYF9rN0YgmEIWYlnQrTe5"/>
+<!-- Overlay Checkbox -->
+<div class="absolute top-2 left-3 z-20">
+<input checked="" class="form-checkbox bg-surface-container-lowest border-outline-variant text-primary-fixed rounded-sm focus:ring-1 focus:ring-primary-fixed focus:ring-opacity-50 w-4 h-4 checked:bg-primary-fixed checked:border-primary-fixed" type="checkbox"/>
+</div>
+<!-- Hover Play Overlay -->
+<div class="absolute inset-0 bg-background/60 backdrop-blur-[2px] opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center z-10">
+<button class="w-12 h-12 rounded-full bg-gradient-to-br from-primary-container to-secondary-container flex items-center justify-center text-surface-container-lowest shadow-[0_0_15px_rgba(0,218,243,0.6)] hover:scale-105 transition-transform">
+<span class="material-symbols-outlined text-3xl ml-1" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
+</button>
+</div>
+</div>
+<!-- Content -->
+<div class="p-3 flex flex-col gap-2 relative">
+<div class="flex justify-between items-start">
+<h4 class="font-headline-md text-[16px] text-on-surface truncate pr-2">Neon Skyline Protocol</h4>
+<span class="font-label-caps text-[10px] px-1.5 py-0.5 rounded bg-tertiary-container/10 text-tertiary-fixed border border-tertiary-fixed/30 shrink-0">CYBERPUNK</span>
+</div>
+<div class="flex justify-between items-end mt-1">
+<div class="flex flex-col gap-1">
+<div class="font-body-fixed text-[11px] text-on-surface-variant flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[14px]">speed</span> 124 BPM
+                                    </div>
+<div class="font-body-fixed text-[11px] text-on-surface-variant flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[14px]">music_note</span> C Min
+                                    </div>
+</div>
+<div class="flex flex-col items-end gap-1">
+<span class="font-body-fixed text-[11px] text-on-surface-variant">4:12</span>
+<span class="font-ui-muted text-[10px] text-primary-fixed flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-primary-fixed animate-pulse"></span> Mastered</span>
+</div>
+</div>
+<!-- Hover Actions Base -->
+<div class="absolute bottom-0 left-0 right-0 p-2 bg-surface-container border-t border-outline-variant translate-y-full group-hover:translate-y-0 transition-transform flex justify-between items-center opacity-0 group-hover:opacity-100">
+<button class="text-on-surface-variant hover:text-primary-fixed p-1"><span class="material-symbols-outlined text-[18px]">edit</span></button>
+<button class="text-on-surface-variant hover:text-primary-fixed p-1"><span class="material-symbols-outlined text-[18px]">download</span></button>
+<button class="text-on-surface-variant hover:text-error p-1"><span class="material-symbols-outlined text-[18px]">delete</span></button>
+</div>
+</div>
+</div>
+<!-- Card 2 (Selected/Active State) -->
+<div class="group relative bg-surface-container rounded-lg border border-primary-fixed/50 overflow-hidden flex flex-col shadow-[0_0_12px_rgba(0,218,243,0.15)] transition-all">
+<div class="absolute left-0 top-0 bottom-0 w-[2px] bg-gradient-to-b from-primary-container to-secondary-container z-10"></div>
+<div class="h-32 w-full relative bg-surface-container-lowest border-b border-outline-variant overflow-hidden">
+<img class="w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-500" data-alt="A highly detailed, neon-infused digital audio waveform display glowing in cyan and magenta on a deep obsidian black background. The visual represents a futuristic music studio interface, utilizing a pro-studio minimal aesthetic with sharp lines, high contrast, and a vaporwave technical mood." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAcewONMAOB7VlVJPBSCPNSgvkq7uJo8gibMkCDEmOBTMjFi14Qyur2V0KUv_Xx7_XQrgGvKCTM8dvoMWMJvvPllYjvsb7WD_KnqmvsrYI0fHWR1nUfZ2DDasf4jf0i1SGKQliOq3KDY5KhbNKuGy6BLVFUwoK9TLQKVZzIs_JCxkCZRpVvG261pq6SKw5Zow_TH3l9QZMOWTGdKxR0VWxx5cW5ib2WkTp8vwIkY6l20kM3HEC1UdRj"/>
+<div class="absolute top-2 left-3 z-20">
+<input checked="" class="form-checkbox bg-surface-container-lowest border-outline-variant text-primary-fixed rounded-sm focus:ring-1 focus:ring-primary-fixed focus:ring-opacity-50 w-4 h-4 checked:bg-primary-fixed checked:border-primary-fixed" type="checkbox"/>
+</div>
+<div class="absolute inset-0 bg-background/60 backdrop-blur-[2px] opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center z-10">
+<button class="w-12 h-12 rounded-full bg-gradient-to-br from-primary-container to-secondary-container flex items-center justify-center text-surface-container-lowest shadow-[0_0_15px_rgba(0,218,243,0.6)] hover:scale-105 transition-transform">
+<span class="material-symbols-outlined text-3xl ml-1" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
+</button>
+</div>
+</div>
+<div class="p-3 flex flex-col gap-2 relative">
+<div class="flex justify-between items-start">
+<h4 class="font-headline-md text-[16px] text-on-surface truncate pr-2">Grid Runner V2</h4>
+<span class="font-label-caps text-[10px] px-1.5 py-0.5 rounded bg-tertiary-container/10 text-tertiary-fixed border border-tertiary-fixed/30 shrink-0">INDUSTRIAL</span>
+</div>
+<div class="flex justify-between items-end mt-1">
+<div class="flex flex-col gap-1">
+<div class="font-body-fixed text-[11px] text-on-surface-variant flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[14px]">speed</span> 130 BPM
+                                    </div>
+<div class="font-body-fixed text-[11px] text-on-surface-variant flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[14px]">music_note</span> F# Min
+                                    </div>
+</div>
+<div class="flex flex-col items-end gap-1">
+<span class="font-body-fixed text-[11px] text-on-surface-variant">3:45</span>
+<span class="font-ui-muted text-[10px] text-on-surface-variant flex items-center gap-1">Draft</span>
+</div>
+</div>
+<div class="absolute bottom-0 left-0 right-0 p-2 bg-surface-container border-t border-outline-variant translate-y-full group-hover:translate-y-0 transition-transform flex justify-between items-center opacity-0 group-hover:opacity-100">
+<button class="text-on-surface-variant hover:text-primary-fixed p-1"><span class="material-symbols-outlined text-[18px]">edit</span></button>
+<button class="text-on-surface-variant hover:text-primary-fixed p-1"><span class="material-symbols-outlined text-[18px]">download</span></button>
+<button class="text-on-surface-variant hover:text-error p-1"><span class="material-symbols-outlined text-[18px]">delete</span></button>
+</div>
+</div>
+</div>
+<!-- Card 3 (Unselected) -->
+<div class="group relative bg-surface-container rounded-lg border border-outline-variant overflow-hidden flex flex-col hover:border-primary-fixed hover:shadow-[0_0_12px_rgba(0,218,243,0.15)] transition-all">
+<div class="h-32 w-full relative bg-surface-container-lowest border-b border-outline-variant overflow-hidden">
+<img class="w-full h-full object-cover opacity-60 group-hover:opacity-80 group-hover:scale-105 transition-all duration-500" data-alt="A moody, low-fidelity digital audio waveform display with subtle static noise, glowing faintly in deep violet on a black background. The visual represents a futuristic music studio interface, utilizing a pro-studio minimal aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDtc0581JNq88vaRgoLT1IEril48iJEzoYL-qWT96TnQuKnrMz9w7jcqMIQRp0WF6R4ICCobAQI5KUYwn6VQ0iQx9FECeztM3yQmsEEjlLlymH7s5ClPMUNEkWPoKhqhYRtLLSbhH4ZwgfjyVyUe2ScOrxATMfxjDFf-5IyUou2SFTEMsgIsIL3h7wNWyza5tswySrLazQzxUH088SD90N2ek7jH_dVTlG6YSDtuxsXTJpk1WLfnlSe"/>
+<div class="absolute top-2 left-3 z-20 opacity-0 group-hover:opacity-100 transition-opacity">
+<input class="form-checkbox bg-surface-container-lowest border-outline-variant text-primary-fixed rounded-sm focus:ring-1 focus:ring-primary-fixed focus:ring-opacity-50 w-4 h-4 checked:bg-primary-fixed checked:border-primary-fixed" type="checkbox"/>
+</div>
+<div class="absolute inset-0 bg-background/60 backdrop-blur-[2px] opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center z-10">
+<button class="w-12 h-12 rounded-full border border-primary-fixed bg-primary-fixed/10 flex items-center justify-center text-primary-fixed hover:bg-primary-fixed/20 hover:scale-105 transition-all">
+<span class="material-symbols-outlined text-3xl ml-1" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
+</button>
+</div>
+</div>
+<div class="p-3 flex flex-col gap-2 relative">
+<div class="flex justify-between items-start">
+<h4 class="font-headline-md text-[16px] text-on-surface truncate pr-2">Midnight Alley</h4>
+<span class="font-label-caps text-[10px] px-1.5 py-0.5 rounded bg-tertiary-container/10 text-tertiary-fixed border border-tertiary-fixed/30 shrink-0">CYBERPUNK</span>
+</div>
+<div class="flex justify-between items-end mt-1">
+<div class="flex flex-col gap-1">
+<div class="font-body-fixed text-[11px] text-on-surface-variant flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[14px]">speed</span> 118 BPM
+                                    </div>
+<div class="font-body-fixed text-[11px] text-on-surface-variant flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[14px]">music_note</span> A Min
+                                    </div>
+</div>
+<div class="flex flex-col items-end gap-1">
+<span class="font-body-fixed text-[11px] text-on-surface-variant">5:02</span>
+<span class="font-ui-muted text-[10px] text-primary-fixed flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-primary-fixed animate-pulse"></span> Mastered</span>
+</div>
+</div>
+<div class="absolute bottom-0 left-0 right-0 p-2 bg-surface-container border-t border-outline-variant translate-y-full group-hover:translate-y-0 transition-transform flex justify-between items-center opacity-0 group-hover:opacity-100">
+<button class="text-on-surface-variant hover:text-primary-fixed p-1"><span class="material-symbols-outlined text-[18px]">edit</span></button>
+<button class="text-on-surface-variant hover:text-primary-fixed p-1"><span class="material-symbols-outlined text-[18px]">download</span></button>
+<button class="text-on-surface-variant hover:text-error p-1"><span class="material-symbols-outlined text-[18px]">delete</span></button>
+</div>
+</div>
+</div>
+<!-- Card 4 (Unselected) -->
+<div class="group relative bg-surface-container rounded-lg border border-outline-variant overflow-hidden flex flex-col hover:border-primary-fixed hover:shadow-[0_0_12px_rgba(0,218,243,0.15)] transition-all">
+<div class="h-32 w-full relative bg-surface-container-lowest border-b border-outline-variant overflow-hidden">
+<img class="w-full h-full object-cover opacity-60 group-hover:opacity-80 group-hover:scale-105 transition-all duration-500" data-alt="A moody, low-fidelity digital audio waveform display with subtle static noise, glowing faintly in deep violet on a black background. The visual represents a futuristic music studio interface, utilizing a pro-studio minimal aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDhKMWaT8LoPANOThx1tU2CrZMIFqoSY8quSHWgIo7-ZnhLMEGsKhR0l21tgazxkv14g9d1rVTqUKq2NkTZxO0RrRzNC9nn3oFgcNldIcKG-6D5S3lj1QMxzIVY3IlvSAlXW6KCG57Zj62HiHLd-s1fg42BfUN20V_SMEmAj9X2MuRJYhxvk95WUdfRULkUKyAV7LtI71HPDpUn2rLyHMyV0EH7Lo5puRzyWz82DX9TUdy2YhTrJ2sg"/>
+<div class="absolute top-2 left-3 z-20 opacity-0 group-hover:opacity-100 transition-opacity">
+<input class="form-checkbox bg-surface-container-lowest border-outline-variant text-primary-fixed rounded-sm focus:ring-1 focus:ring-primary-fixed focus:ring-opacity-50 w-4 h-4 checked:bg-primary-fixed checked:border-primary-fixed" type="checkbox"/>
+</div>
+<div class="absolute inset-0 bg-background/60 backdrop-blur-[2px] opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center z-10">
+<button class="w-12 h-12 rounded-full border border-primary-fixed bg-primary-fixed/10 flex items-center justify-center text-primary-fixed hover:bg-primary-fixed/20 hover:scale-105 transition-all">
+<span class="material-symbols-outlined text-3xl ml-1" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
+</button>
+</div>
+</div>
+<div class="p-3 flex flex-col gap-2 relative">
+<div class="flex justify-between items-start">
+<h4 class="font-headline-md text-[16px] text-on-surface truncate pr-2">Sector 7 Ambience</h4>
+<span class="font-label-caps text-[10px] px-1.5 py-0.5 rounded bg-tertiary-container/10 text-tertiary-fixed border border-tertiary-fixed/30 shrink-0">INDUSTRIAL</span>
+</div>
+<div class="flex justify-between items-end mt-1">
+<div class="flex flex-col gap-1">
+<div class="font-body-fixed text-[11px] text-on-surface-variant flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[14px]">speed</span> 95 BPM
+                                    </div>
+<div class="font-body-fixed text-[11px] text-on-surface-variant flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[14px]">music_note</span> E Min
+                                    </div>
+</div>
+<div class="flex flex-col items-end gap-1">
+<span class="font-body-fixed text-[11px] text-on-surface-variant">6:30</span>
+<span class="font-ui-muted text-[10px] text-on-surface-variant flex items-center gap-1">Draft</span>
+</div>
+</div>
+<div class="absolute bottom-0 left-0 right-0 p-2 bg-surface-container border-t border-outline-variant translate-y-full group-hover:translate-y-0 transition-transform flex justify-between items-center opacity-0 group-hover:opacity-100">
+<button class="text-on-surface-variant hover:text-primary-fixed p-1"><span class="material-symbols-outlined text-[18px]">edit</span></button>
+<button class="text-on-surface-variant hover:text-primary-fixed p-1"><span class="material-symbols-outlined text-[18px]">download</span></button>
+<button class="text-on-surface-variant hover:text-error p-1"><span class="material-symbols-outlined text-[18px]">delete</span></button>
+</div>
+</div>
+</div>
+<!-- (Duplicate cards 5-8 visually similar to 3-4 for brevity in code generation, representing unselected state in the grid) -->
+<!-- Card 5 -->
+<div class="group relative bg-surface-container rounded-lg border border-outline-variant overflow-hidden flex flex-col hover:border-primary-fixed hover:shadow-[0_0_12px_rgba(0,218,243,0.15)] transition-all">
+<div class="h-32 w-full relative bg-surface-container-lowest border-b border-outline-variant overflow-hidden">
+<img class="w-full h-full object-cover opacity-60 group-hover:opacity-80 group-hover:scale-105 transition-all duration-500" data-alt="A moody, low-fidelity digital audio waveform display with subtle static noise, glowing faintly in deep violet on a black background. The visual represents a futuristic music studio interface, utilizing a pro-studio minimal aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAlt08SVWVIGJs5CGLKCjV32r6_lFb5DQQT1zCPLmEe4yBRAz8yET5biUU-yuYfyyOEEPfmQ9fyTpD1tnD747idmX2G3yIgqIE2DhVJam_JM64pxyNqEViSEb2vamhYwiWPg_Yaf9nHgPtlbdrZ7zrbIeCGN-9XAIGT4nRcHRFWXE41EAfgyTy-NPHPzLABVFoHvnYtADjUSaEg9q_YyFFw4JQF77jfft4j4BGZHiL-dX3leuCZFtl5"/>
+<div class="absolute top-2 left-3 z-20 opacity-0 group-hover:opacity-100 transition-opacity">
+<input class="form-checkbox bg-surface-container-lowest border-outline-variant text-primary-fixed rounded-sm focus:ring-1 focus:ring-primary-fixed focus:ring-opacity-50 w-4 h-4 checked:bg-primary-fixed checked:border-primary-fixed" type="checkbox"/>
+</div>
+<div class="absolute inset-0 bg-background/60 backdrop-blur-[2px] opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center z-10">
+<button class="w-12 h-12 rounded-full border border-primary-fixed bg-primary-fixed/10 flex items-center justify-center text-primary-fixed hover:bg-primary-fixed/20 hover:scale-105 transition-all">
+<span class="material-symbols-outlined text-3xl ml-1" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
+</button>
+</div>
+</div>
+<div class="p-3 flex flex-col gap-2 relative">
+<div class="flex justify-between items-start">
+<h4 class="font-headline-md text-[16px] text-on-surface truncate pr-2">Neural Link</h4>
+<span class="font-label-caps text-[10px] px-1.5 py-0.5 rounded bg-tertiary-container/10 text-tertiary-fixed border border-tertiary-fixed/30 shrink-0">CYBERPUNK</span>
+</div>
+<div class="flex justify-between items-end mt-1">
+<div class="flex flex-col gap-1">
+<div class="font-body-fixed text-[11px] text-on-surface-variant flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[14px]">speed</span> 140 BPM
+                                    </div>
+<div class="font-body-fixed text-[11px] text-on-surface-variant flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[14px]">music_note</span> D Min
+                                    </div>
+</div>
+<div class="flex flex-col items-end gap-1">
+<span class="font-body-fixed text-[11px] text-on-surface-variant">2:55</span>
+<span class="font-ui-muted text-[10px] text-on-surface-variant flex items-center gap-1">Draft</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Card 6 -->
+<div class="group relative bg-surface-container rounded-lg border border-outline-variant overflow-hidden flex flex-col hover:border-primary-fixed hover:shadow-[0_0_12px_rgba(0,218,243,0.15)] transition-all">
+<div class="h-32 w-full relative bg-surface-container-lowest border-b border-outline-variant overflow-hidden">
+<img class="w-full h-full object-cover opacity-60 group-hover:opacity-80 group-hover:scale-105 transition-all duration-500" data-alt="A moody, low-fidelity digital audio waveform display with subtle static noise, glowing faintly in deep violet on a black background. The visual represents a futuristic music studio interface, utilizing a pro-studio minimal aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDOHD6iJcPP2qwSd8IhZvzbHt5qMSrjm4bdPIYvwduchu7HDocjDLpK3HvE4wCrVILd2-UTsz0fpwmDUrxJidzoAYm_O2ohvhMbcNxei2Y51zD8BIoQkrW6qoA8jPvKDzfV-ExedSqV_pwL5bO5LdxVdk9b067Ypm8fsCAso6JMKxnMVLTnKSzn1-ruuSn_db2gvmUpkVcP5Y_bf_2MdIMwCUs4Q3XBWt7-fSlk9MGF4-VxU3MH0Kj_"/>
+<div class="absolute top-2 left-3 z-20 opacity-0 group-hover:opacity-100 transition-opacity">
+<input class="form-checkbox bg-surface-container-lowest border-outline-variant text-primary-fixed rounded-sm focus:ring-1 focus:ring-primary-fixed focus:ring-opacity-50 w-4 h-4 checked:bg-primary-fixed checked:border-primary-fixed" type="checkbox"/>
+</div>
+<div class="absolute inset-0 bg-background/60 backdrop-blur-[2px] opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center z-10">
+<button class="w-12 h-12 rounded-full border border-primary-fixed bg-primary-fixed/10 flex items-center justify-center text-primary-fixed hover:bg-primary-fixed/20 hover:scale-105 transition-all">
+<span class="material-symbols-outlined text-3xl ml-1" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
+</button>
+</div>
+</div>
+<div class="p-3 flex flex-col gap-2 relative">
+<div class="flex justify-between items-start">
+<h4 class="font-headline-md text-[16px] text-on-surface truncate pr-2">Hologram Tears</h4>
+<span class="font-label-caps text-[10px] px-1.5 py-0.5 rounded bg-tertiary-container/10 text-tertiary-fixed border border-tertiary-fixed/30 shrink-0">SYNTHWAVE</span>
+</div>
+<div class="flex justify-between items-end mt-1">
+<div class="flex flex-col gap-1">
+<div class="font-body-fixed text-[11px] text-on-surface-variant flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[14px]">speed</span> 90 BPM
+                                    </div>
+<div class="font-body-fixed text-[11px] text-on-surface-variant flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[14px]">music_note</span> G Maj
+                                    </div>
+</div>
+<div class="flex flex-col items-end gap-1">
+<span class="font-body-fixed text-[11px] text-on-surface-variant">4:40</span>
+<span class="font-ui-muted text-[10px] text-primary-fixed flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-primary-fixed animate-pulse"></span> Mastered</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Card 7 -->
+<div class="group relative bg-surface-container rounded-lg border border-outline-variant overflow-hidden flex flex-col hover:border-primary-fixed hover:shadow-[0_0_12px_rgba(0,218,243,0.15)] transition-all">
+<div class="h-32 w-full relative bg-surface-container-lowest border-b border-outline-variant overflow-hidden">
+<img class="w-full h-full object-cover opacity-60 group-hover:opacity-80 group-hover:scale-105 transition-all duration-500" data-alt="A moody, low-fidelity digital audio waveform display with subtle static noise, glowing faintly in deep violet on a black background. The visual represents a futuristic music studio interface, utilizing a pro-studio minimal aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD9qqVFJuLWIUd-6pfzBPo_Jq7FqEvPG_YrJAwIImmEEMwibAm_QPdX4jsGRFCJSexf9tsgrDx3GQqdNmb6BXjk1yAsj2AJGhRktS9SF__4nVMO4AXvEZWpQ2u5O4uKuDMHAi8XJPK1zy8iAoEaVfsrnfs16tR4A8l8lsv_BkZbbhsG5tLkn08auPGs-GegFbW_pJkSrqKz8x9f8F-XiZ_AV6ZQie2n76wsdBTD5l0nq55_n1I6qxNJ"/>
+<div class="absolute top-2 left-3 z-20 opacity-0 group-hover:opacity-100 transition-opacity">
+<input class="form-checkbox bg-surface-container-lowest border-outline-variant text-primary-fixed rounded-sm focus:ring-1 focus:ring-primary-fixed focus:ring-opacity-50 w-4 h-4 checked:bg-primary-fixed checked:border-primary-fixed" type="checkbox"/>
+</div>
+<div class="absolute inset-0 bg-background/60 backdrop-blur-[2px] opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center z-10">
+<button class="w-12 h-12 rounded-full border border-primary-fixed bg-primary-fixed/10 flex items-center justify-center text-primary-fixed hover:bg-primary-fixed/20 hover:scale-105 transition-all">
+<span class="material-symbols-outlined text-3xl ml-1" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
+</button>
+</div>
+</div>
+<div class="p-3 flex flex-col gap-2 relative">
+<div class="flex justify-between items-start">
+<h4 class="font-headline-md text-[16px] text-on-surface truncate pr-2">Mainframe Breach</h4>
+<span class="font-label-caps text-[10px] px-1.5 py-0.5 rounded bg-tertiary-container/10 text-tertiary-fixed border border-tertiary-fixed/30 shrink-0">INDUSTRIAL</span>
+</div>
+<div class="flex justify-between items-end mt-1">
+<div class="flex flex-col gap-1">
+<div class="font-body-fixed text-[11px] text-on-surface-variant flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[14px]">speed</span> 135 BPM
+                                    </div>
+<div class="font-body-fixed text-[11px] text-on-surface-variant flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[14px]">music_note</span> F Min
+                                    </div>
+</div>
+<div class="flex flex-col items-end gap-1">
+<span class="font-body-fixed text-[11px] text-on-surface-variant">3:22</span>
+<span class="font-ui-muted text-[10px] text-on-surface-variant flex items-center gap-1">Draft</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Card 8 -->
+<div class="group relative bg-surface-container rounded-lg border border-outline-variant overflow-hidden flex flex-col hover:border-primary-fixed hover:shadow-[0_0_12px_rgba(0,218,243,0.15)] transition-all">
+<div class="h-32 w-full relative bg-surface-container-lowest border-b border-outline-variant overflow-hidden">
+<img class="w-full h-full object-cover opacity-60 group-hover:opacity-80 group-hover:scale-105 transition-all duration-500" data-alt="A moody, low-fidelity digital audio waveform display with subtle static noise, glowing faintly in deep violet on a black background. The visual represents a futuristic music studio interface, utilizing a pro-studio minimal aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDeMIooKUALS8HedRa-gLiVQfP4s7n2EaoVMUSSweBnuNFC9tUQaBCwoWSWbPFaenFc8EDbHUCdV_igHsyxLc3AZ9vNP3vQNNsvU8hraeoo2ENejG_UQobBmTtZwTKjsgNUiMdVtpxK_HbfXV8kHfJbB-NVouSe6XUssV2ZrE5jEGbldU1QQ1TlCY4HxuZvGi_V6wGiyNO5bS2XzQbip4UAk64Xc0CNPp-J1HVLKjqlZTx6llOSiBso"/>
+<div class="absolute top-2 left-3 z-20 opacity-0 group-hover:opacity-100 transition-opacity">
+<input class="form-checkbox bg-surface-container-lowest border-outline-variant text-primary-fixed rounded-sm focus:ring-1 focus:ring-primary-fixed focus:ring-opacity-50 w-4 h-4 checked:bg-primary-fixed checked:border-primary-fixed" type="checkbox"/>
+</div>
+<div class="absolute inset-0 bg-background/60 backdrop-blur-[2px] opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center z-10">
+<button class="w-12 h-12 rounded-full border border-primary-fixed bg-primary-fixed/10 flex items-center justify-center text-primary-fixed hover:bg-primary-fixed/20 hover:scale-105 transition-all">
+<span class="material-symbols-outlined text-3xl ml-1" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
+</button>
+</div>
+</div>
+<div class="p-3 flex flex-col gap-2 relative">
+<div class="flex justify-between items-start">
+<h4 class="font-headline-md text-[16px] text-on-surface truncate pr-2">Void Walker</h4>
+<span class="font-label-caps text-[10px] px-1.5 py-0.5 rounded bg-tertiary-container/10 text-tertiary-fixed border border-tertiary-fixed/30 shrink-0">CYBERPUNK</span>
+</div>
+<div class="flex justify-between items-end mt-1">
+<div class="flex flex-col gap-1">
+<div class="font-body-fixed text-[11px] text-on-surface-variant flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[14px]">speed</span> 120 BPM
+                                    </div>
+<div class="font-body-fixed text-[11px] text-on-surface-variant flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[14px]">music_note</span> B Min
+                                    </div>
+</div>
+<div class="flex flex-col items-end gap-1">
+<span class="font-body-fixed text-[11px] text-on-surface-variant">5:15</span>
+<span class="font-ui-muted text-[10px] text-on-surface-variant flex items-center gap-1">Draft</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+</div>
+<!-- Floating Bulk Action Bar -->
+<div class="fixed bottom-8 left-1/2 -translate-x-1/2 ml-[32px] z-50 flex items-center gap-6 bg-surface-container-highest/95 backdrop-blur-xl border border-primary-fixed/30 shadow-[0_4px_24px_rgba(0,0,0,0.8)] rounded-full px-6 py-3 shadow-[0_0_15px_rgba(0,218,243,0.1)]">
+<div class="flex items-center gap-3 border-r border-outline-variant pr-6">
+<span class="flex h-5 w-5 items-center justify-center rounded-full bg-primary-fixed text-surface-container-highest font-label-caps text-[12px]">2</span>
+<span class="font-headline-md text-[16px] text-primary-fixed">Selected</span>
+</div>
+<div class="flex items-center gap-4">
+<button class="flex items-center gap-2 font-ui-muted text-ui-muted text-on-surface hover:text-primary-fixed transition-colors">
+<span class="material-symbols-outlined text-[18px]">ios_share</span> Export
+            </button>
+<button class="flex items-center gap-2 font-ui-muted text-ui-muted text-error hover:text-error-container transition-colors">
+<span class="material-symbols-outlined text-[18px]">delete</span> Delete
+            </button>
+</div>
+<button class="ml-2 text-on-surface-variant hover:text-on-surface transition-colors p-1 rounded-full hover:bg-surface-variant">
+<span class="material-symbols-outlined text-[18px]">close</span>
+</button>
+</div>
+</body></html>

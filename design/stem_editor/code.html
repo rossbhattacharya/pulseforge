@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Editor - Pulseforge</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700&amp;family=Space+Grotesk:wght@600;700&amp;family=Inter:wght@400&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-container-high": "#292937",
+                    "tertiary-container": "#d9c8ff",
+                    "surface-tint": "#00daf3",
+                    "on-primary-container": "#00626e",
+                    "tertiary": "#f2e9ff",
+                    "on-error-container": "#ffdad6",
+                    "tertiary-fixed-dim": "#d0bcff",
+                    "inverse-on-surface": "#2f2f3d",
+                    "secondary-container": "#e10083",
+                    "on-secondary-fixed-variant": "#8d0050",
+                    "surface-container": "#1e1e2c",
+                    "surface-container-lowest": "#0d0d1a",
+                    "surface-container-low": "#1a1a28",
+                    "on-tertiary-container": "#6834d1",
+                    "surface-variant": "#343342",
+                    "secondary": "#ffb0cc",
+                    "on-tertiary-fixed": "#23005c",
+                    "secondary-fixed-dim": "#ffb0cc",
+                    "primary-fixed": "#9cf0ff",
+                    "inverse-surface": "#e3e0f3",
+                    "secondary-fixed": "#ffd9e4",
+                    "error": "#ffb4ab",
+                    "on-surface-variant": "#bac9cc",
+                    "tertiary-fixed": "#e9ddff",
+                    "inverse-primary": "#006875",
+                    "on-tertiary": "#3c0091",
+                    "on-secondary": "#640037",
+                    "primary-fixed-dim": "#00daf3",
+                    "on-primary-fixed-variant": "#004f58",
+                    "on-background": "#e3e0f3",
+                    "background": "#12121f",
+                    "on-error": "#690005",
+                    "on-surface": "#e3e0f3",
+                    "on-primary-fixed": "#001f24",
+                    "outline-variant": "#3b494c",
+                    "on-primary": "#00363d",
+                    "primary": "#c3f5ff",
+                    "surface": "#12121f",
+                    "surface-dim": "#12121f",
+                    "on-secondary-fixed": "#3e0020",
+                    "surface-container-highest": "#343342",
+                    "on-secondary-container": "#fffbff",
+                    "error-container": "#93000a",
+                    "primary-container": "#00e5ff",
+                    "on-tertiary-fixed-variant": "#5516be",
+                    "surface-bright": "#383846",
+                    "outline": "#849396"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "stack-xs": "4px",
+                    "stack-md": "16px",
+                    "gutter": "16px",
+                    "sidebar-width": "64px",
+                    "panel-padding": "20px",
+                    "stack-sm": "8px"
+            },
+            "fontFamily": {
+                    "body-fixed": ["JetBrains Mono"],
+                    "headline-lg": ["Space Grotesk"],
+                    "headline-md": ["Space Grotesk"],
+                    "ui-muted": ["Inter"],
+                    "label-caps": ["JetBrains Mono"],
+                    "body-main": ["Inter"]
+            },
+            "fontSize": {
+                    "body-fixed": ["13px", {"lineHeight": "1.5", "fontWeight": "500"}],
+                    "headline-lg": ["32px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "headline-md": ["24px", {"lineHeight": "1.2", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "ui-muted": ["12px", {"lineHeight": "1.4", "fontWeight": "400"}],
+                    "label-caps": ["11px", {"lineHeight": "1.2", "letterSpacing": "0.05em", "fontWeight": "700"}],
+                    "body-main": ["14px", {"lineHeight": "1.6", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body { background-color: #12121f; color: #e3e0f3; overflow: hidden; }
+        .glass-panel { background: rgba(30, 30, 44, 0.6); backdrop-filter: blur(12px); border: 1px solid #3b494c; }
+        .neon-glow { box-shadow: 0 0 10px rgba(0, 218, 243, 0.3); }
+        .neon-glow-magenta { box-shadow: 0 0 10px rgba(225, 0, 131, 0.3); }
+        .neon-text-cyan { text-shadow: 0 0 8px rgba(0, 218, 243, 0.5); }
+        .scrollbar-hide::-webkit-scrollbar { display: none; }
+        .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+        
+        .track-gradient-cyan { background: linear-gradient(90deg, rgba(0,218,243,0.1) 0%, transparent 100%); border-left: 2px solid #00daf3; }
+        .track-gradient-magenta { background: linear-gradient(90deg, rgba(225,0,131,0.1) 0%, transparent 100%); border-left: 2px solid #e10083; }
+        .track-gradient-violet { background: linear-gradient(90deg, rgba(208,188,255,0.1) 0%, transparent 100%); border-left: 2px solid #d0bcff; }
+        
+        /* Simulated Waveform CSS */
+        .waveform-segment { width: 4px; border-radius: 2px; margin: 0 1px; display: inline-block; vertical-align: middle; }
+    </style>
+</head>
+<body class="flex flex-col h-screen font-body-main text-body-main selection:bg-primary-container selection:text-on-primary-container">
+<!-- TopNavBar (Contextual Intent: Editor, suppressing global shell top nav for dedicated editor controls) -->
+<header class="glass-panel h-16 flex items-center justify-between px-gutter border-b border-outline-variant z-40 shrink-0">
+<div class="flex items-center gap-4">
+<button class="w-8 h-8 rounded flex items-center justify-center hover:bg-surface-variant transition-colors border border-transparent hover:border-outline-variant">
+<span class="material-symbols-outlined text-[20px] text-on-surface-variant">arrow_back</span>
+</button>
+<h1 class="font-headline-md text-headline-md text-on-surface">Midnight Circuit v3</h1>
+</div>
+<div class="flex items-center gap-6 glass-panel px-4 py-2 rounded-lg">
+<div class="flex items-center gap-2">
+<button class="w-8 h-8 rounded flex items-center justify-center text-on-surface hover:text-primary-fixed transition-colors">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">skip_previous</span>
+</button>
+<button class="w-10 h-10 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center hover:scale-105 transition-transform shadow-[0_0_15px_rgba(0,229,255,0.4)]">
+<span class="material-symbols-outlined text-[24px]" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
+</button>
+<button class="w-8 h-8 rounded flex items-center justify-center text-on-surface hover:text-primary-fixed transition-colors">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">skip_next</span>
+</button>
+<button class="w-8 h-8 rounded flex items-center justify-center text-on-surface-variant hover:text-primary-fixed transition-colors ml-2">
+<span class="material-symbols-outlined">loop</span>
+</button>
+</div>
+<div class="w-px h-6 bg-outline-variant mx-2"></div>
+<div class="font-body-fixed text-body-fixed text-primary-fixed neon-text-cyan flex items-baseline gap-2">
+<span class="text-lg">01:24.3</span>
+<span class="text-[10px] text-on-surface-variant opacity-70">120 BPM</span>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="px-6 py-2 rounded bg-gradient-to-r from-primary-container to-secondary-container text-on-primary-container font-label-caps text-label-caps shadow-[0_0_10px_rgba(0,229,255,0.3)] hover:shadow-[0_0_20px_rgba(225,0,131,0.4)] transition-all">
+                EXPORT
+            </button>
+</div>
+</header>
+<div class="flex flex-1 overflow-hidden">
+<!-- SideNavBar (Suppressed due to Editor focus, replaced with Track Headers) -->
+<div class="w-[280px] border-r border-outline-variant bg-surface flex flex-col shrink-0 overflow-y-auto scrollbar-hide z-20">
+<!-- Time Ruler Corner -->
+<div class="h-10 border-b border-outline-variant flex items-end justify-end px-2 pb-1 bg-surface-container-low">
+<span class="font-label-caps text-label-caps text-on-surface-variant text-[9px]">BARS</span>
+</div>
+<!-- Track Header: Drums -->
+<div class="h-[100px] border-b border-outline-variant p-2 flex flex-col justify-between hover:bg-surface-variant transition-colors track-gradient-cyan bg-surface-variant/30 relative">
+<div class="absolute left-0 top-0 bottom-0 w-[2px] bg-primary-fixed shadow-[0_0_8px_rgba(0,218,243,0.8)]"></div>
+<div class="flex items-center justify-between">
+<span class="font-body-fixed text-body-fixed text-primary-fixed">Drums</span>
+<div class="flex gap-1">
+<button class="w-6 h-6 rounded border border-outline-variant text-[10px] font-label-caps text-on-surface-variant hover:bg-surface-bright flex items-center justify-center">M</button>
+<button class="w-6 h-6 rounded border border-outline-variant text-[10px] font-label-caps text-on-surface-variant hover:bg-surface-bright flex items-center justify-center">S</button>
+</div>
+</div>
+<div class="flex items-center gap-2 mt-auto">
+<div class="flex-1 h-2 bg-surface-container-lowest rounded-full overflow-hidden border border-outline-variant">
+<div class="h-full bg-primary-fixed w-[75%]"></div>
+</div>
+<button class="w-6 h-6 rounded flex items-center justify-center text-on-surface-variant hover:text-secondary-container transition-colors" title="Regenerate Stem">
+<span class="material-symbols-outlined text-[16px]">temp_preferences_custom</span>
+</button>
+</div>
+</div>
+<!-- Track Header: Bass -->
+<div class="h-[100px] border-b border-outline-variant p-2 flex flex-col justify-between hover:bg-surface-variant transition-colors">
+<div class="flex items-center justify-between">
+<span class="font-body-fixed text-body-fixed text-on-surface">Bass</span>
+<div class="flex gap-1">
+<button class="w-6 h-6 rounded border border-outline-variant text-[10px] font-label-caps text-on-surface-variant hover:bg-surface-bright flex items-center justify-center">M</button>
+<button class="w-6 h-6 rounded border border-outline-variant text-[10px] font-label-caps text-on-surface-variant hover:bg-surface-bright flex items-center justify-center">S</button>
+</div>
+</div>
+<div class="flex items-center gap-2 mt-auto">
+<div class="flex-1 h-2 bg-surface-container-lowest rounded-full overflow-hidden border border-outline-variant">
+<div class="h-full bg-outline-variant w-[60%]"></div>
+</div>
+<button class="w-6 h-6 rounded flex items-center justify-center text-on-surface-variant hover:text-secondary-container transition-colors">
+<span class="material-symbols-outlined text-[16px]">temp_preferences_custom</span>
+</button>
+</div>
+</div>
+<!-- Track Header: Melody -->
+<div class="h-[100px] border-b border-outline-variant p-2 flex flex-col justify-between hover:bg-surface-variant transition-colors track-gradient-magenta bg-surface-variant/30">
+<div class="absolute left-0 top-0 bottom-0 w-[2px] bg-secondary-container shadow-[0_0_8px_rgba(225,0,131,0.8)]"></div>
+<div class="flex items-center justify-between">
+<span class="font-body-fixed text-body-fixed text-secondary-container">Melody</span>
+<div class="flex gap-1">
+<button class="w-6 h-6 rounded border border-outline-variant text-[10px] font-label-caps text-on-surface-variant hover:bg-surface-bright flex items-center justify-center">M</button>
+<button class="w-6 h-6 rounded border border-secondary-container text-[10px] font-label-caps bg-secondary-container/20 text-secondary-container flex items-center justify-center">S</button>
+</div>
+</div>
+<div class="flex items-center gap-2 mt-auto">
+<div class="flex-1 h-2 bg-surface-container-lowest rounded-full overflow-hidden border border-outline-variant">
+<div class="h-full bg-secondary-container w-[85%]"></div>
+</div>
+<button class="w-6 h-6 rounded flex items-center justify-center text-secondary-container hover:text-secondary transition-colors neon-text-magenta">
+<span class="material-symbols-outlined text-[16px]">temp_preferences_custom</span>
+</button>
+</div>
+</div>
+<!-- Track Header: Pads -->
+<div class="h-[100px] border-b border-outline-variant p-2 flex flex-col justify-between hover:bg-surface-variant transition-colors">
+<div class="flex items-center justify-between">
+<span class="font-body-fixed text-body-fixed text-on-surface">Pads</span>
+<div class="flex gap-1">
+<button class="w-6 h-6 rounded border border-outline-variant text-[10px] font-label-caps text-on-surface-variant hover:bg-surface-bright flex items-center justify-center">M</button>
+<button class="w-6 h-6 rounded border border-outline-variant text-[10px] font-label-caps text-on-surface-variant hover:bg-surface-bright flex items-center justify-center">S</button>
+</div>
+</div>
+<div class="flex items-center gap-2 mt-auto">
+<div class="flex-1 h-2 bg-surface-container-lowest rounded-full overflow-hidden border border-outline-variant">
+<div class="h-full bg-outline-variant w-[40%]"></div>
+</div>
+<button class="w-6 h-6 rounded flex items-center justify-center text-on-surface-variant hover:text-secondary-container transition-colors">
+<span class="material-symbols-outlined text-[16px]">temp_preferences_custom</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Main Timeline Canvas -->
+<div class="flex-1 bg-surface-container-low relative overflow-x-auto overflow-y-hidden flex flex-col">
+<!-- Time Ruler -->
+<div class="h-10 border-b border-outline-variant bg-surface-container flex relative z-10 sticky top-0">
+<!-- Section Markers -->
+<div class="absolute top-0 left-[100px] bg-primary-fixed/20 border border-primary-fixed/50 text-primary-fixed font-label-caps text-[9px] px-2 py-0.5 rounded-sm">INTRO</div>
+<div class="absolute top-0 left-[400px] bg-tertiary-fixed-dim/20 border border-tertiary-fixed-dim/50 text-tertiary-fixed-dim font-label-caps text-[9px] px-2 py-0.5 rounded-sm">BUILD</div>
+<div class="absolute top-0 left-[800px] bg-secondary-container/20 border border-secondary-container/50 text-secondary-container font-label-caps text-[9px] px-2 py-0.5 rounded-sm">DROP</div>
+<!-- Ruler Marks (Simulated) -->
+<div class="w-[2000px] h-full flex items-end">
+<script>
+                        for(let i=1; i<=20; i++) {
+                            document.write(`<div class="flex-1 border-l border-outline-variant/30 h-1/2 flex items-end pl-1 pb-1">
+                                <span class="font-label-caps text-[10px] text-on-surface-variant opacity-50">${i*4}</span>
+                            </div>`);
+                        }
+                    </script>
+</div>
+</div>
+<!-- Playhead -->
+<div class="absolute top-0 bottom-0 w-px bg-primary-container z-30 left-[350px] shadow-[0_0_10px_rgba(0,229,255,0.8)] pointer-events-none">
+<div class="w-3 h-3 border-l-[6px] border-l-transparent border-r-[6px] border-r-transparent border-t-[8px] border-t-primary-container absolute -top-1 -left-1.5"></div>
+</div>
+<!-- Arrangement Tracks Container -->
+<div class="flex flex-col w-[2000px] relative">
+<!-- Grid Lines (Background) -->
+<div class="absolute inset-0 pointer-events-none flex" style="background-image: linear-gradient(to right, #3b494c 1px, transparent 1px); background-size: 100px 100%;"></div>
+<!-- Drums Lane -->
+<div class="h-[100px] border-b border-outline-variant/30 relative flex items-center px-4">
+<div class="absolute left-[50px] w-[300px] h-[70px] bg-primary-fixed/10 border border-primary-fixed/40 rounded flex items-center justify-center overflow-hidden">
+<div class="h-10 w-full flex items-center justify-around opacity-70">
+<!-- Simulating waveform -->
+<script>
+                                for(let i=0; i<30; i++) {
+                                    let h = Math.random() * 100;
+                                    document.write(`<div class="waveform-segment bg-primary-fixed" style="height: ${h}%"></div>`);
+                                }
+                            </script>
+</div>
+<span class="absolute top-1 left-2 font-label-caps text-[9px] text-primary-fixed">BEAT_LOOP_01</span>
+</div>
+<div class="absolute left-[380px] w-[600px] h-[70px] bg-primary-fixed/20 border border-primary-fixed rounded flex items-center justify-center overflow-hidden shadow-[0_0_10px_rgba(0,218,243,0.1)]">
+<div class="h-10 w-full flex items-center justify-around opacity-90">
+<script>
+                                for(let i=0; i<60; i++) {
+                                    let h = Math.random() * 100;
+                                    document.write(`<div class="waveform-segment bg-primary-fixed" style="height: ${h}%"></div>`);
+                                }
+                            </script>
+</div>
+<span class="absolute top-1 left-2 font-label-caps text-[9px] text-primary-fixed">BEAT_MAIN_01</span>
+</div>
+</div>
+<!-- Bass Lane -->
+<div class="h-[100px] border-b border-outline-variant/30 relative flex items-center px-4">
+<div class="absolute left-[380px] w-[600px] h-[70px] bg-outline-variant/30 border border-outline-variant/60 rounded flex items-center justify-center overflow-hidden">
+<div class="h-10 w-full flex items-center justify-around opacity-50">
+<script>
+                                for(let i=0; i<40; i++) {
+                                    let h = Math.random() * 60 + 20;
+                                    document.write(`<div class="waveform-segment bg-on-surface" style="height: ${h}%"></div>`);
+                                }
+                            </script>
+</div>
+<span class="absolute top-1 left-2 font-label-caps text-[9px] text-on-surface-variant">SUB_BASS_A</span>
+</div>
+</div>
+<!-- Melody Lane (Selected) -->
+<div class="h-[100px] border-b border-outline-variant/30 relative flex items-center px-4 bg-surface-variant/20">
+<div class="absolute left-[450px] w-[400px] h-[70px] bg-secondary-container/20 border-2 border-secondary-container rounded flex items-center justify-center overflow-hidden shadow-[0_0_15px_rgba(225,0,131,0.2)]">
+<div class="absolute top-0 right-0 bottom-0 w-2 bg-gradient-to-b from-primary-container to-secondary-container"></div>
+<div class="h-10 w-full flex items-center justify-around opacity-90 px-2">
+<script>
+                                for(let i=0; i<35; i++) {
+                                    let h = Math.random() * 80 + 10;
+                                    document.write(`<div class="waveform-segment bg-secondary-container" style="height: ${h}%"></div>`);
+                                }
+                            </script>
+</div>
+<span class="absolute top-1 left-2 font-label-caps text-[9px] text-secondary-container">ARP_LEAD_GEN</span>
+</div>
+</div>
+<!-- Pads Lane -->
+<div class="h-[100px] border-b border-outline-variant/30 relative flex items-center px-4">
+<div class="absolute left-[100px] w-[800px] h-[70px] bg-tertiary-fixed-dim/10 border border-tertiary-fixed-dim/40 rounded flex items-center justify-center overflow-hidden">
+<div class="h-10 w-full flex items-center justify-around opacity-40 px-2">
+<script>
+                                for(let i=0; i<60; i++) {
+                                    let h = Math.random() * 40 + 30;
+                                    document.write(`<div class="waveform-segment bg-tertiary-fixed-dim" style="height: ${h}%"></div>`);
+                                }
+                            </script>
+</div>
+<span class="absolute top-1 left-2 font-label-caps text-[9px] text-tertiary-fixed-dim">ATMOS_PAD</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Panel (Context Editor) -->
+<div class="w-[320px] border-l border-outline-variant bg-surface flex flex-col shrink-0 z-20 shadow-[-4px_0_24px_rgba(0,0,0,0.5)]">
+<div class="h-16 border-b border-outline-variant flex items-center px-4">
+<span class="font-headline-md text-[16px] text-secondary-container">Selected: Melody</span>
+</div>
+<div class="p-4 flex flex-col gap-6">
+<!-- AI Edit Box -->
+<div class="glass-panel rounded-lg p-1 border border-secondary-container/50 relative overflow-hidden">
+<div class="absolute inset-0 bg-gradient-to-br from-secondary-container/5 to-primary-container/5 pointer-events-none"></div>
+<textarea class="w-full bg-[#0A0A0F] border border-outline-variant rounded p-3 font-body-main text-[13px] text-on-surface focus:border-secondary-container focus:ring-1 focus:ring-secondary-container resize-none h-24 placeholder:text-on-surface-variant/50" placeholder="Describe changes... e.g., 'make this section more euphoric'"></textarea>
+<div class="flex justify-end mt-2 px-1 pb-1">
+<button class="px-3 py-1.5 rounded border border-secondary-container text-secondary-container bg-secondary-container/5 hover:bg-secondary-container/10 font-label-caps text-[10px] flex items-center gap-1 transition-colors">
+<span class="material-symbols-outlined text-[14px]">auto_awesome</span>
+                            GENERATE
+                        </button>
+</div>
+</div>
+<!-- Properties -->
+<div>
+<h3 class="font-label-caps text-label-caps text-on-surface-variant mb-4">TRACK PROPERTIES</h3>
+<div class="flex justify-between items-center bg-surface-container p-3 rounded border border-outline-variant/50 mb-2">
+<span class="font-ui-muted text-ui-muted text-on-surface">Volume</span>
+<div class="flex items-center gap-2">
+<div class="w-24 h-1 bg-surface-container-lowest rounded-full border border-outline-variant relative">
+<div class="absolute left-0 top-0 bottom-0 w-[80%] bg-primary-fixed"></div>
+<div class="absolute left-[80%] top-1/2 -translate-y-1/2 w-2 h-4 bg-primary-fixed rounded-sm shadow-[0_0_5px_rgba(0,218,243,0.5)]"></div>
+</div>
+<span class="font-body-fixed text-[10px] text-primary-fixed w-8 text-right">-2.4</span>
+</div>
+</div>
+<div class="flex justify-between items-center bg-surface-container p-3 rounded border border-outline-variant/50 mb-2">
+<span class="font-ui-muted text-ui-muted text-on-surface">Reverb</span>
+<div class="flex items-center gap-2">
+<div class="w-6 h-6 rounded-full border-2 border-outline-variant border-t-secondary-container rotate-45 relative">
+<div class="absolute top-1/2 left-1/2 w-1 h-2 bg-secondary-container origin-bottom -translate-x-1/2 -translate-y-full rounded-sm"></div>
+</div>
+<span class="font-body-fixed text-[10px] text-secondary-container w-8 text-right">45%</span>
+</div>
+</div>
+<div class="flex justify-between items-center bg-surface-container p-3 rounded border border-outline-variant/50">
+<span class="font-ui-muted text-ui-muted text-on-surface">Filter (LP)</span>
+<div class="flex items-center gap-2">
+<div class="w-6 h-6 rounded-full border-2 border-outline-variant border-t-tertiary-fixed-dim -rotate-45 relative">
+<div class="absolute top-1/2 left-1/2 w-1 h-2 bg-tertiary-fixed-dim origin-bottom -translate-x-1/2 -translate-y-full rounded-sm"></div>
+</div>
+<span class="font-body-fixed text-[10px] text-tertiary-fixed-dim w-8 text-right">1.2k</span>
+</div>
+</div>
+</div>
+<div class="mt-auto">
+<div class="flex flex-wrap gap-2">
+<span class="px-2 py-1 bg-tertiary/10 border border-tertiary/30 text-tertiary-fixed-dim font-body-fixed text-[10px] rounded-full">Lead</span>
+<span class="px-2 py-1 bg-tertiary/10 border border-tertiary/30 text-tertiary-fixed-dim font-body-fixed text-[10px] rounded-full">Arp</span>
+<span class="px-2 py-1 bg-tertiary/10 border border-tertiary/30 text-tertiary-fixed-dim font-body-fixed text-[10px] rounded-full">Synth</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Bottom Bar (Editor Tools) -->
+<footer class="h-10 border-t border-outline-variant bg-surface-container-highest flex items-center justify-between px-gutter shrink-0 z-40">
+<div class="flex items-center gap-4">
+<button class="flex items-center gap-1 text-on-surface-variant hover:text-primary-fixed transition-colors">
+<span class="material-symbols-outlined text-[16px]">undo</span>
+</button>
+<button class="flex items-center gap-1 text-on-surface-variant hover:text-primary-fixed transition-colors">
+<span class="material-symbols-outlined text-[16px]">redo</span>
+</button>
+</div>
+<div class="flex items-center gap-4 border-l border-r border-outline-variant px-4 h-full">
+<div class="flex items-center gap-2 text-on-surface-variant text-[12px]">
+<span class="material-symbols-outlined text-[16px]">grid_on</span>
+<span>Snap:</span>
+<select class="bg-transparent border-none text-primary-fixed font-body-fixed text-[12px] p-0 focus:ring-0 cursor-pointer">
+<option>1/16</option>
+<option>1/8</option>
+<option>1/4</option>
+<option>Bar</option>
+</select>
+</div>
+</div>
+<div class="flex items-center gap-2 text-on-surface-variant">
+<button class="w-6 h-6 rounded flex items-center justify-center hover:bg-surface-variant transition-colors">
+<span class="material-symbols-outlined text-[16px]">zoom_out</span>
+</button>
+<div class="w-24 h-1 bg-surface rounded-full border border-outline-variant/50 relative">
+<div class="absolute left-[30%] w-3 h-3 bg-on-surface rounded-full top-1/2 -translate-y-1/2"></div>
+</div>
+<button class="w-6 h-6 rounded flex items-center justify-center hover:bg-surface-variant transition-colors">
+<span class="material-symbols-outlined text-[16px]">zoom_in</span>
+</button>
+</div>
+</footer>
+</body></html>
