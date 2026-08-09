@@ -38,4 +38,4 @@ Intro/Build/Drop/Break/Outro markers are draggable labels that define loop regio
 
 ## 2026-08-09 — Stitch zip as design source of truth
 
-Re-imported `/Users/rossbhattacharya/Downloads/stitch_pulseforge_ai_music_studio.zip` into `/design`. Screens (Home, Create, Generating, Results, Export) rebuilt to match Stitch HTML/screenshots; Create already matched Phase 1.
+Re-imported `/Users/rossbhattacharya/Downloads/stitch_pulseforge_ai_music_studio.zip` into `/design`. Screens (Home, Create, Generating, Results, Export, Editor, Library) rebuilt to match Stitch HTML/screenshots.
